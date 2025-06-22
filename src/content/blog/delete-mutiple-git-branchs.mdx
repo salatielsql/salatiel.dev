@@ -1,0 +1,52 @@
+---
+title: 'How to delete multiple git branchs at once'
+date: 2023-05-08
+slug: 'delete-mutiple-git-branchs'
+topics:
+  - git
+---
+
+I sometimes (always) forget to delete my local branchs and someday
+I type `git branch` to find a branch and I ended up scrolling through a huge list.
+
+If I have a few branches to delete I can easily type each name separated by spaces to delete them:
+
+```shell
+git branch -D branch1 branch2 branch2
+```
+
+But at some point is annoying to type one by one so I discovered a way to delete multiple branchs when they share a name pattern.
+
+We can delete the result list of a `git branch --list` command 🤯
+
+```shell
+git branch -D `git branch --list 'PREFIX*'`
+```
+
+Inside the single quotes we can use any type of prefix or postfix
+
+### Example
+
+After I'm done with the feature branches I usually deleting them by deleting all branchs with a `feat/` prefix.
+
+```shell
+# show local branchs
+> git branch
+
+# local branchs
+  main*
+  feat/navbar
+  feat/button
+  feat/header
+  fix/download
+
+# delete all branchs with the 'feat/*'
+> git branch -D `git branch --list 'feat/*'`
+
+# check the list again
+> git branch
+
+# all feature branchs are deleted
+  main*
+  fix/download
+```

@@ -1,0 +1,52 @@
+---
+title: "How to read environment variables inside AppDelegate or AndroidManifest using React Native Config"
+date: 2023-11-15
+slug: "react-native-config-env-vars-android-manifest-app-delegate"
+topics:
+  - react-native
+  - android
+  - ios
+---
+
+To read environment variables inside the AppDelegate file in iOS or the AndroidManifest file in Android using React Native Config you need to already have [react-native-config](https://www.npmjs.com/package/react-native-config?activeTab=readme) installed and properly setup.
+
+I'm using the following `.env` file as an example for this tutorial
+
+```
+MY_API_KEY=123456789
+```
+
+### Android
+
+Add a meta-data tag inside `application` tag in AndroidManifest.xml:
+
+```jsx
+<meta-data
+  android:name="com.example.API_URL"
+  android:value="@string/MY_API_KEY"
+/>
+```
+
+### iOS
+
+1. First, open the AppDelegate.m(m) file and import the React Native Config module before the `@implementation AppDelegate` declaration
+2. Inside `didFinishLaunchingWithOptions` method in AppDelegate.m create a `NSString` with the name of your choice and set your environment key name inside the quotes
+
+```objectivec
+// 1. import module
+#import "RNCConfig.h"
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+
+// 2. declare the variable
+NSString *myApiKey = [RNCConfig envFor:@"MY_API_KEY"];
+
+// example of use:
+[GMSServices provideAPIKey: myApiKey];
+```
+
+Remember to build your app after implementing the changes above.
+
+That's it! Now you can read environment variables inside the AppDelegate or AndroidManifest using React Native Config.

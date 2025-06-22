@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content'
+
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import CustomIcon from '@/components/CustomIcon.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+import { FEATURED_WORK } from '@/config/content.config'
+import { excerpt } from '@/utils/excerpt'
+import { stripMarkdownAndHTML } from '@/utils/stripMarkdownAndHTML'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/config/blog.config'
+
+const POSTS = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5)
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="hero">
+    <Header />
+
+    <div class="container">
+      <div class="hero-content">
+        <h1>Hello, I'm Salatiel!</h1>
+        <p>
+          I'm an experienced frontend developer based in <CustomIcon name="brazil" size={24} /> Brazil. I love coding, writing
+          and cats
+        </p>
+        <p>
+          Currently working at <a class="ext-link" href="https://ckl.io" rel="nofollow noreferrer">Cheesecake Labs</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <div class="label-display highlight">Featured work</div>
+
+      <div class="work">
+        {
+          FEATURED_WORK.map(work => (
+            <a class="card" href={work.href}>
+              <h3>{work.title}</h3>
+              <p>{work.description}</p>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="label-display">Latest posts</div>
+
+      <div class="latest-posts">
+        {
+          POSTS.map(post => (
+            <div>
+              <a href="#">
+                <h3>{post.data.title}</h3>
+              </a>
+              <p>{excerpt(stripMarkdownAndHTML(post.body ?? ''))}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .hero {
+    background-color: var(--color-gray-75);
+  }
+
+  .hero-content {
+    margin-top: 4rem;
+    padding-bottom: 4rem;
+
+    & p {
+      font-size: var(--font-xl);
+      color: var(--color-gray-400);
+
+      & > svg {
+        vertical-align: sub;
+      }
+    }
+
+    & a.ext-link {
+      font-size: var(--font-3xl);
+      color: var(--color-gray-500);
+
+      &:hover {
+        color: var(--color-link);
+      }
+    }
+  }
+
+  main {
+    padding: 4rem 0;
+  }
+
+  .work {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 6rem;
+
+    & .card {
+      &:hover h3 {
+        color: var(--color-link);
+      }
+
+      & > h3 {
+        color: var(--color-gray-800);
+      }
+    }
+  }
+</style>
