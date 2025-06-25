@@ -1,0 +1,225 @@
+---
+title: 'Running a React Native App on iPhone 2024 guide'
+date: 2024-08-02
+slug: '/running-a-react-native-app-on-iphone-2024-guide'
+topics:
+  - React Native
+---
+
+This tutorial will guide you through the process of running a React Native app on an physical device not on a simulator, event if is your first time doing it. I hope it helps!
+
+#### Table of contents
+
+- [Prerequisites](#prerequisites)
+- [My environment](#my-environment)
+- [Enable developer mode on iPhone](#enable-iphone-developer-mode)
+- [Prepare iPhone to run the app](#prepare-iphone-to-run-the-app)
+- [Managing devices, developer certificate and provision profile in your Apple account](#apple-stuff)
+  - [Get iphone UDID and name](#get-iphone-udid-register-device)
+  - [Register a new device](#register-a-new-device)
+  - [Create a iOS development certificate](#create-ios-development-certificate)
+  - [Update Provision Profile](#provision-profile)
+- [Installing iOS deploy](#installing-ios-deploy)
+- [Building the app](#building-the-app)
+
+<h2 id="my-environment">Prerequisites</h2>
+
+- ⚠️ First of all, make sure you to have the [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment) already
+- Access to the Apple Developer account
+
+<h2 id="my-environment">My environment</h2>
+
+Some parts of this guide may vary depending on your environment, such as Xcode version or macOS version. Here is the environment I used to run the app on my iPhone:
+
+- macOS Sonoma 14.1.1
+- Xcode Version 15.0.1
+- node v18.19.0
+- React Native v0.74.3
+- iPhone 11 - iOS Version 17.5.1
+- Homebrew 4.3.12
+
+<h2 id="enable-iphone-developer-mode">Enable developer mode on your iPhone</h2>
+
+Open the settings app on your iPhone and go to **Settings > Privacy & Security > Developer Mode** and enable it.
+Tap **Restart** to continue. After the restart, you should see a popup to confirm that you want to enable developer mode. Tap **Turn On**.
+
+<table>
+  <thead>
+    <td width="33%">Find "Developer Mode"</td>
+    <td width="33%">Enable the switch and tap Restart</td>
+    <td width="33%">Tap Turn On</td>
+  </thead>
+  <tr>
+    <td width="33%">
+      <img src="./assets/enable-developer-mode-iphone-1.png" alt="Enable developer mode on iPhone part 1" />
+    </td>
+    <td width="33%">
+      <img src="./assets/enable-developer-mode-iphone-2.png" alt="Enable developer mode on iPhone part 2" />
+    </td>
+    <td width="33%">
+      <img src="./assets/enable-developer-mode-iphone-3.png" alt="Enable developer mode on iPhone part 3" />
+    </td>
+</table>
+
+**✅ Now you have successfully enabled developer mode on your iPhone.**
+
+<h2 id="prepare-iphone-to-run-the-app">Prepare iPhone to run the app</h2>
+
+Open Xcode, look for the **Window** menu and click on **Devices and Simulators**. Now connect your iPhone to your computer using a USB cable.
+
+If is the first time you are connecting the iPhone in your computer you should see a popup on your iPhone asking you to trust the computer. Tap **Trust**.
+
+After that you should see the iPhone in the **Devices** tab.
+
+> ⚠️ If you connect your iPhone before enabling developer mode you probably will this the following messege in the Devices window:
+
+`Waiting to reconnect to iPhone. Previous preparation error: Developer Mode disabled. To use iPhone for development, enable Developer Mode in Settings → Privacy & Security.`
+
+So [enabled developer mode on your iPhone](#enable-iphone-developer-mode) before connecting it to your computer.
+
+Another common issue is when your computer and your iPhone are not connected to the same network. If that happens you will see the following message:
+
+`Ensure the device is unlocked and attached with a cable or associated with the same local area network as this Mac. The device must be opted into Developer Mode to connect wirelessly.`
+
+**So, make sure your iPhone is connected to the same network as your computer.**
+
+![Preparation Error](./assets/prepare-iphone-to-run-app-error.png)
+
+Usually you should see the following screen. That means Xcode is copying the required files to your the app on your iPhone. This step is completed automatically.
+
+![Preparation Copying File](./assets/prepare-iphone-to-run-app-2.png)
+
+It may take a few minutes to complete but sometimes, as it happed to me, that the process got stuck. If that happens disconnect you device and try cleaning the Xcode cache and build files. You can do that by running the following command in the terminal:
+
+```
+npx react-native-clean-project
+```
+
+After cleaning, reconnect your iPhone and try again.
+
+That solved the issue for me and after a few minutes I could see the following screen:
+
+![Preparation Done](./assets/prepare-iphone-to-run-app-done.png)
+
+> ✅ If you see this screen, you are ready to run the app on your iPhone.
+
+<h2 id="apple-stuff">Managing devices, developer certificate and provision profile in your Apple account</h2>
+
+There are several steps to do in your Apple account to be able to run the app on your iPhone. First you need to get the device UDID, then you need to register the device in your Apple account, after that request a certificate from authority and create a new development certificate.
+
+So here is a step by step guide to do that:
+
+<h3 id="get-iphone-udid-register-device">Get iPhone UDID and register device</h3>
+
+UDID is short for _Unique Device Identifier_ so with your iPhone connected to your computer, open **Devices and Simulators** in Xcode and copy the **Identifier** located right bellow the serial number
+
+![How to get iPhone UDID](./assets/how-to-get-iphone-udid.jpg)
+
+<h3 id="register-a-new-device">Register a new device</h3>
+
+1. Go to your [Devices list](https://developer.apple.com/account/resources/devices/list) inside your Apple Developer account and click on **Devices** in the left menu. Click on the **+** button to add a new device.
+2. On the **Register a New Device** page, enter the **Device Name** and **Identifier** and click **Continue**.
+3. Review the information and click **Register**.
+4. On the registrattion complete screen, click **Done**.
+5. Now you should see the new device in the list of devices.
+
+> For the dark mode folks, the nexts screenshots will be in light mode ~MY EYES~
+
+![register iphone apple account 1](./assets/register-iphone-apple-account-1.png)
+
+![register iphone apple account 2](./assets/register-iphone-apple-account-2.png)
+
+![register iphone apple account 3](./assets/register-iphone-apple-account-3.png)
+
+![register iphone apple account 4](./assets/register-iphone-apple-account-4.png)
+
+![register iphone apple account 5](./assets/register-iphone-apple-account-5.png)
+
+<h3 id="create-ios-development-certificate">Create a iOS development certificate</h3>
+
+Before creating a certificate you need to create a Certificate Signing Request (CSR) file. Open your Keychain Access app and go to **Keychain Access > Certificate Assistant > Request a Certificate from a Certificate Authority**. Enter your email and name and select **Save to disk**.
+
+![csr](./assets/csr.png)
+
+![certificate assistant](./assets/certificate-assistant.png)
+
+<h4>Steps to create a the iOS development certificate:</h4>
+
+1. Go to [Certificates, Identifiers & Profiles](https://developer.apple.com/account/resources/certificates/list) in your Apple Developer account.
+2. Click on **Certificates** in the left menu and then click on the **+** button to add a new certificate.
+3. Upload the Certificate Signing Request (CSR) file you created using the Certificate Assistant in the previous step and click **Continue**.
+4. Download the certificate and double click on it to install it in your Keychain Access app.
+
+![create ios development certificate 1](./assets/create-ios-development-certificate-1.png)
+
+![create ios development certificate 2](./assets/create-ios-development-certificate-2.png)
+
+![create ios development certificate 3](./assets/create-ios-development-certificate-3.png)
+
+<h2 id="provision-profile">Update Provision Profile</h2>
+
+Now, you have a new device registered and a new development certificate. The Provision Profile is what glues the two together.
+
+This will be the last step that need to be done in your Apple account. (Finally!)
+
+1. Go to [Provisioning Profiles](https://developer.apple.com/account/resources/profiles/list)
+2. Click on the plus button to create a new profile
+3. Select **iOS App Development** and click **Continue**
+4. Select an app ID and click **Continue**
+5. Select the iOS certificate you created in the previous step and click **Continue**
+6. Select the device you registered previously and click **Continue**
+7. Give a name to the provisioning profile and click **Generate**
+8. After the profile is generated click **Download**
+9. Open the Xcode project, go to your app target and select the **Signing & Capabilities** tab. Under Signing, import the provisioning profile you just downloaded.
+
+![provisioning profile 1](./assets/provisioning-profile-1.png)
+
+![provisioning profile 2](./assets/provisioning-profile-2.png)
+
+![provisioning profile 3](./assets/provisioning-profile-3.png)
+
+![provisioning profile 4](./assets/provisioning-profile-4.png)
+
+![provisioning profile 5](./assets/provisioning-profile-5.png)
+
+![provisioning profile 6](./assets/provisioning-profile-6.png)
+
+Be sure that after importing the provisioning profile in your Xcode project it shows no error messages. Here is an example of how it should look like:
+
+![provisioning profile xcode](./assets/provisioning-profile-xcode.png)
+
+<h2 id="installing-ios-deploy">Installing iOS deploy</h2>
+
+Depending on your iPhone OS version you need to install ios-deploy CLI. Please follow the instructions on the [ios-deploy GitHub page](https://github.com/ios-control/ios-deploy) to install it.
+
+But if you are using Homebrew you can install it by running the following command:
+
+```
+brew install ios-deploy
+```
+
+<h2 id="building-the-app">Building the app</h2>
+
+Finnaly, you can to your React Native project and build the app by running the following command in the terminal:
+
+```
+npx react-native run-ios --device='YOUR IPHONE NAME'
+```
+
+You can pass `scheme` and `mode` as well. Here's an example:
+
+```
+npx react-native run-ios --device='iPhone de Salatiel' --scheme='Development' --mode='Debug'
+```
+
+Hopefully you will see the following output after the build is completed:
+
+```
+> info Found Xcode workspace "Runner.xcworkspace"
+> info Building (using "xcodebuild -workspace Runner.xcworkspace -configuration Debug -scheme Development -destination id=00000000000000")
+> success Successfully built the app
+> info Installing and launching your app on iPhone de Salatiel
+> success Installed the app on the device.core
+```
+
+And you should see the app running on your iPhone.

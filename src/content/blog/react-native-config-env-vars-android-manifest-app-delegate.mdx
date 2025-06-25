@@ -1,11 +1,11 @@
 ---
-title: "How to read environment variables inside AppDelegate or AndroidManifest using React Native Config"
+title: 'How to read environment variables inside AppDelegate or AndroidManifest using React Native Config'
 date: 2023-11-15
-slug: "react-native-config-env-vars-android-manifest-app-delegate"
+slug: '/react-native-config-env-vars-android-manifest-app-delegate'
 topics:
-  - react-native
-  - android
-  - ios
+  - React Native
+  - Android
+  - iOS
 ---
 
 To read environment variables inside the AppDelegate file in iOS or the AndroidManifest file in Android using React Native Config you need to already have [react-native-config](https://www.npmjs.com/package/react-native-config?activeTab=readme) installed and properly setup.
@@ -21,10 +21,7 @@ MY_API_KEY=123456789
 Add a meta-data tag inside `application` tag in AndroidManifest.xml:
 
 ```jsx
-<meta-data
-  android:name="com.example.API_URL"
-  android:value="@string/MY_API_KEY"
-/>
+<meta-data android:name="com.example.API_URL" android:value="@string/MY_API_KEY" />
 ```
 
 ### iOS

@@ -1,4 +1,6 @@
 // @ts-check
+import 'dotenv/config'
+
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
@@ -27,8 +29,8 @@ const fetchCommitData = async () => {
 
 try {
   const commitData = await fetchCommitData()
-  console.log('commit data debug', JSON.stringify(commitData))
-  latestUpdate = commitData.commit.date
+  latestUpdate = commitData.commit.committer.date ? commitData.commit.committer.date : null
+  console.log('commit last update', latestUpdate)
 } catch (e) {
   // @ts-ignore
   console.error(`fetching commit ${commitHash} data failed with mesasge: ${e.message}`, JSON.stringify(e))
@@ -36,7 +38,7 @@ try {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://salatiel.dev',
   integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {

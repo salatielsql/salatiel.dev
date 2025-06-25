@@ -1,52 +1,52 @@
 ---
 title: 'How to delete multiple git branchs at once'
 date: 2023-05-08
-slug: 'delete-mutiple-git-branchs'
+slug: '/delete-mutiple-git-branchs'
 topics:
-  - git
+  - Git
 ---
 
-I sometimes (always) forget to delete my local branchs and someday
-I type `git branch` to find a branch and I ended up scrolling through a huge list.
+Sometimes you forgot to delete you local branchs, which happens to me all the time, and someday
+you type `git branch` to see you local branchs and you ended up with a huge list.
+So the best way would be deleting multiple branchs at the same time to save up some
+time writing each branch name one by one.
 
-If I have a few branches to delete I can easily type each name separated by spaces to delete them:
+**TLDR;**
 
-```shell
+You can delete multiple branchs by typing each name separated by spaces:
+
+```bash
 git branch -D branch1 branch2 branch2
 ```
 
-But at some point is annoying to type one by one so I discovered a way to delete multiple branchs when they share a name pattern.
+Or if the branchs you want to delete has a shared name pattern you can use the code bellow to delete multiple branchs at the same time:
 
-We can delete the result list of a `git branch --list` command 🤯
-
-```shell
-git branch -D `git branch --list 'PREFIX*'`
+```bash
+git branch -D `git branch --list 'prefix*'`
 ```
-
-Inside the single quotes we can use any type of prefix or postfix
 
 ### Example
 
-After I'm done with the feature branches I usually deleting them by deleting all branchs with a `feat/` prefix.
+Deleting multiple branch with the same prefix:
 
-```shell
-# show local branchs
-> git branch
+```bash
+# List your branchs
+git branch
 
-# local branchs
-  main*
-  feat/navbar
-  feat/button
-  feat/header
-  fix/download
+# Local branchs
+main*
+prefix-branch1
+prefix-branch2
+prefix-branch3
 
-# delete all branchs with the 'feat/*'
-> git branch -D `git branch --list 'feat/*'`
+# delete all branchs with the 'prefix-' in their names
+git branch -D `git branch --list 'prefix-*'`
 
-# check the list again
-> git branch
+# Check the list again
+git branch
 
-# all feature branchs are deleted
-  main*
-  fix/download
+# Branchs deleted
+main*
 ```
+
+This works with any kind of pre or posfix too.

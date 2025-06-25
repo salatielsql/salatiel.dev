@@ -16,6 +16,7 @@
 :root {
 	/* Main colors */
 	--color-gray-800: #1E293B;
+	--color-gray-700: #2E3E58;
 	--color-gray-500: #34495E;
 	--color-gray-400: #64748B;
 	--color-gray-300: #94A3B8;
@@ -36,7 +37,10 @@
 	--color-nextjs: #000000;
 
 	/* Fonts */
+	/* --font-display: 'Caprasimo', system-ui; */
+	--font-display: 'Plus Jakarta Sans Variable', sans-serif;
 	--font-sans: 'Public Sans Variable', sans-serif;
+	/* --font-sans: 'Inter Tight  Variable', sans-serif; */
 	--font-pixel: 'PP NeueBit', sans-serif;
 	--font-mono: 'Fira Code', monospace;
 
@@ -60,6 +64,8 @@ html, body {
 
 body {
 	font-family: var(--font-sans);
+    font-weight: 300;
+    font-variation-settings: "wght" 320;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -91,12 +97,24 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: var(--font-pixel);;
-	margin: 0 0 0.5rem 0;
-	line-height: 1.2;
+	font-family: var(--font-display);;
+	margin: 0 0 1rem 0;
 }
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+    font-variation-settings: "wght" 700;
+	margin: 0 0 0.5rem 0;
+}
+
 h1 {
 	font-size: var(--font-6xl);
+	font-weight: 800;
+    font-variation-settings: "wght" 800;
 }
 h2 {
 	font-size: 2.441em;
@@ -123,33 +141,6 @@ b {
 
 a {
 	text-decoration: none;
-}
-
-a.card {
-	display: flex;
-	position: relative;
-	transition: all 250ms ease;
-	
-	&::after {
-		content: ' ↗';
-		font-family: var(--font-pixel);
-		font-size: var(--font-xl);
-		line-height: var(--font-xl);
-		color: var(--color-gray-300);
-		position: absolute;
-		top: 0.8rem;
-		right: 1rem;
-		transition: all 250ms ease;
-	}
-
-	&:hover {
-		border-color: var(--color-link);
-
-		&::after {
-			color: var(--color-link);
-			transform: translate(4px, -4px);
-		}
-	}
 }
 
 a.ext-link {
@@ -260,24 +251,4 @@ a.ext-link {
 	max-width: 56rem; /* 896px */
 	margin: 0 auto;
 	padding: 0 1em;
-}
-
-.label-display {
-	font-size: var(--font-xl);
-	line-height: var(--font-2xl);
-	font-family: var(--font-pixel);
-	color: var(--color-gray-400);
-	margin-bottom: 1rem;
-	letter-spacing: 2px;
-
-	&.highlight {
-		color: var(--color-highlight)
-	}
-}
-
-.card {
-	border: 1px solid var(--color-gray-75);
-	background-color: white;
-	border-radius: 6px;
-	padding: 1.5rem;
 }

@@ -1,35 +1,37 @@
 ---
 title: 'How to create a ES6 class with async constructor'
 date: 2022-08-04
-slug: 'es6-class-with-async-constructor'
+slug: '/es6-class-with-async-constructor'
 topics:
-  - javascript
-  - typescript
+  - Javascript
+  - Typescript
 ---
 
 It's not possible to create an async constructor at the moment. So, if you are searching for something like that is probably because you have to retreive data asynchronously before using any of the class methods and don't want to write multiple times the same code.
 
 **I'll show how you can acomplish that:**
 
-```typescript
+```js:title=async-es6-class.ts
 class AsyncClassConstructor {
   constructor() {
-    this.futureData = undefined
+    this.futureData = undefined;
 
     this.isReady = (async () => {
       if (!this.futureData) {
-        this.futureData = await AsyncClassConstructor.doSomethingAsync()
+        const futureData = await AsyncClassConstructor.doSomethingAsync();
+
+        this.futureData = futureData
+
+        return true;
       }
 
-      return !!this.futureData
-    })()
+      return false;
+    })();
   }
 
   static async doSomethingAsync() {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('foo')
-      }, 300)
+        setTimeout(() => { resolve('foo') }, 300)
     })
   }
 }
@@ -60,27 +62,26 @@ Let's think of a to-do list app where you want to get the user session before re
 
 **The service responsable to return the user to-do list:**
 
-```typescript
-// todo-service.ts
+```js:title=todo-service.js
 import axios from 'axios'
 
 import { getUserSession } from '../somewhere'
 
 class TodoService {
   constructor() {
-    this.userSession = undefined
+    this.userSession = undefined;
 
     this.hasUserSession = (async () => {
       if (!this.userSession) {
-        const userSession = await getUserSession()
+        const userSession = await getUserSession();
 
         this.userSession = userSession
 
-        return true
+        return true;
       }
 
-      return false
-    })()
+      return false;
+    })();
   }
 
   list() {
@@ -93,8 +94,7 @@ class TodoService {
 
 > I'm using React because is the web framework that I'm more confortable with but it could be any other
 
-```jsx
-// TodoList.tsx
+```jsx:title=TodoList.jsx
 import { React } from 'react'
 
 import { TodoService } from '../todo-service'
@@ -117,9 +117,7 @@ export const TodoList = () => {
 
   return (
     <ul>
-      {todoList.map(todo => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
+      {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
     </ul>
   )
 }

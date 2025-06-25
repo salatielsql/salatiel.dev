@@ -1,15 +1,15 @@
 ---
 interface Props {
   date: Date
+  class?: string
 }
 
-const { date } = Astro.props
+const { date, class: className } = Astro.props
 ---
 
-{console.log(date)}
 {
   Boolean(date) && (
-    <time datetime={date.toISOString()}>
+    <time class:list={['formatted-date', className]} datetime={date.toISOString()}>
       {date.toLocaleDateString('en-us', {
         year: 'numeric',
         month: 'short',
@@ -18,3 +18,13 @@ const { date } = Astro.props
     </time>
   )
 }
+
+<style>
+  .formatted-date {
+    font-size: var(--font-xs);
+    line-height: var(--font-base);
+    height: var(--font-base);
+    text-transform: uppercase;
+    color: var(--color-gray-300);
+  }
+</style>

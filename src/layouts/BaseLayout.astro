@@ -1,6 +1,9 @@
 ---
 import type { ImageMetadata } from 'astro'
 import '@fontsource-variable/public-sans'
+import '@fontsource-variable/inter-tight'
+import '@fontsource/caprasimo'
+import '@fontsource-variable/plus-jakarta-sans'
 
 import FallbackImage from '../assets/blog-placeholder-1.jpg'
 
@@ -58,8 +61,25 @@ import Footer from '@/components/Footer.astro'
     <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
   </head>
   <body>
+    <div class="wip-banner">
+      <div class="container">
+        🚧 Hey there! The site is under construction. I'm actively working to have all basic features working properly.
+      </div>
+    </div>
+
     <slot />
 
     <Footer />
   </body>
 </html>
+
+<style>
+  .wip-banner {
+    padding: 1rem 0;
+    background-color: yellow;
+    color: black;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-variation-settings: 'wght' 600;
+  }
+</style>
