@@ -97,16 +97,22 @@ import FOOTER_CONFIG from '@/config/footer.config'
 
       <div class="row">
         <span>
-          Last updated on {
-            Boolean(__LATEST_UPDATE__) &&
-              typeof __LATEST_UPDATE__ === 'string' &&
-              Intl.DateTimeFormat('en', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              }).format(new Date(__LATEST_UPDATE__))
+          {
+            Boolean(__LATEST_UPDATE__) ? (
+              <>
+                Last updated on{' '}
+                {typeof __LATEST_UPDATE__ === 'string' &&
+                  Intl.DateTimeFormat('en', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  }).format(new Date(__LATEST_UPDATE__))}
+              </>
+            ) : (
+              ''
+            )
           }
           <div class="h-separator"></div>
           Commit deployed:
