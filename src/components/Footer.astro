@@ -98,7 +98,8 @@ import FOOTER_CONFIG from '@/config/footer.config'
       <div class="row">
         <span>
           Last updated on {
-            typeof __LATEST_UPDATE__ === 'string' &&
+            Boolean(__LATEST_UPDATE__) &&
+              typeof __LATEST_UPDATE__ === 'string' &&
               Intl.DateTimeFormat('en', {
                 year: 'numeric',
                 month: 'short',
