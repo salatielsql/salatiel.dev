@@ -1,0 +1,41 @@
+---
+import HeaderLink from '@/components/HeaderLink.astro'
+import Brand from '@/components/Brand.astro'
+
+import { SITE_TITLE } from '@/config/blog.config'
+---
+
+<header class="header">
+  <div class="container">
+    <nav class="navbar">
+      <a href="/" title={SITE_TITLE}>
+        <Brand />
+      </a>
+
+      <div class="internal-links">
+        <HeaderLink href="/">Index</HeaderLink>
+        <HeaderLink href="/blog">Blog</HeaderLink>
+        <HeaderLink href="/about">About</HeaderLink>
+      </div>
+    </nav>
+  </div>
+</header>
+<style>
+  .header {
+    margin: 0;
+    padding: 1rem 0;
+    background: transparent;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .internal-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+</style>

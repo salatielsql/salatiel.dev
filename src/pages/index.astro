@@ -1,0 +1,187 @@
+---
+import { getCollection } from 'astro:content'
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/config/blog.config'
+import { FEATURED_WORK } from '@/config/work.config'
+
+import Header from '@/components/Header.astro'
+import Icons from '@/components/Icons.astro'
+import LabelDisplay from '@/components/LabelDisplay.astro'
+import ContentCard from '@/components/ContentCard.astro'
+import ButtonLink from '@/components/ButtonLink.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+import { excerpt } from '@/utils/excerpt'
+import { parseTopicSlug } from '@/utils/parseTopicSlug'
+import { stripMarkdownAndHTML } from '@/utils/stripMarkdownAndHTML'
+import { getBlogUrl } from '@/utils/getBlogUrl'
+import FormattedDate from '@/components/FormattedDate.astro'
+
+const POSTS = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 5)
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="hero">
+    <Header />
+
+    <div class="container">
+      <div class="hero-content">
+        <h1>Hello, I'm Salatiel!</h1>
+        <p>
+          I'm an experienced frontend developer based in <Icons name="brazil" size={24} /> Brazil. I love coding, writing
+          and cats
+        </p>
+        <p>
+          Currently working at <a class="ext-link" href="https://ckl.io" rel="nofollow noreferrer">Cheesecake Labs</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <LabelDisplay color="highlight" text="Featured work" />
+
+      <div class="work">
+        {
+          FEATURED_WORK.map(work => (
+            <ContentCard icons={work.icons} title={work.title} description={work.description} href={work.href} />
+          ))
+        }
+      </div>
+
+      <LabelDisplay text="Latest posts" />
+
+      <div class="latest-posts">
+        {
+          POSTS.map(post => (
+            <div class="post">
+              <div class="top-row">
+                <FormattedDate date={post.data.date} />
+                <div class="h-separator" />
+                <div class="post-topics">
+                  {post.data.topics &&
+                    post.data.topics.map((topic, index) => (
+                      <div class="topic">
+                        {index > 0 && <div class="h-separator" style="opacity:0.5;" />}
+                        {topic.id && <Icons class="topic-icon" name={parseTopicSlug(topic.id)} />}
+                        <span class="topic-name">{topic.id}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              <a href={getBlogUrl(post.data.slug)}>
+                <h3 class="post-title">{post.data.title}</h3>
+                <p>{excerpt(stripMarkdownAndHTML(post.body ?? ''))}</p>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+
+      <ButtonLink href={getBlogUrl()}> Read all </ButtonLink>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero {
+    background-color: var(--color-gray-75);
+  }
+
+  .hero-content {
+    margin-top: 4rem;
+    padding-bottom: 4rem;
+
+    & p {
+      font-size: var(--font-xl);
+      color: var(--color-gray-400);
+
+      & > svg {
+        vertical-align: sub;
+      }
+    }
+
+    & a.ext-link {
+      font-size: var(--font-3xl);
+      color: var(--color-gray-500);
+
+      &:hover {
+        color: var(--color-link);
+      }
+    }
+  }
+
+  main {
+    padding: 4rem 0;
+  }
+
+  .work {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 6rem;
+
+    & .card {
+      &:hover h3 {
+        color: var(--color-link);
+      }
+
+      & > h3 {
+        color: var(--color-gray-800);
+      }
+    }
+  }
+
+  .post {
+    margin-bottom: 2.5rem;
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    & a {
+      text-decoration: none;
+    }
+
+    & p {
+      font-size: var(--font-base);
+      line-height: var(--font-2xl);
+      color: var(--color-gray-400);
+    }
+
+    .post-title {
+      font-size: var(--font-xl);
+      line-height: var(--font-2xl);
+      color: var(--color-gray-700);
+
+      &:hover {
+        color: var(--color-gray-800);
+      }
+    }
+
+    .topic-icon {
+      margin-right: 0.25rem;
+    }
+
+    .post-topics {
+      display: flex;
+    }
+
+    .topic {
+      display: flex;
+      align-items: center;
+    }
+
+    .topic-name {
+      font-size: var(--font-xs);
+      line-height: var(--font-base);
+      height: var(--font-base);
+      text-transform: uppercase;
+      color: var(--color-gray-300);
+    }
+  }
+</style>

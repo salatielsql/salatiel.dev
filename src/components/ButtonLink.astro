@@ -1,0 +1,45 @@
+---
+type Props = {
+  href: string
+}
+
+const { href } = Astro.props
+---
+
+<a class="button-link" href={href}>
+  <slot />
+  <span class="arrow">→</span>
+</a>
+
+<style>
+  .button-link {
+    font-family: var(--font-pixel);
+    font-size: var(--font-xl);
+    line-height: var(--font-xl);
+    color: var(--color-gray-400);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    padding: 1rem 0;
+    font-weight: 700;
+    font-variation-settings: 'wght' 720;
+    transition: all 200ms ease;
+
+    &:hover {
+      color: var(--color-gray-700);
+
+      & .arrow {
+        transform: translateX(4px);
+        color: var(--color-gray-700);
+      }
+    }
+
+    .arrow {
+      font-family: var(--font-pixel);
+      font-size: var(--font-2xl);
+      line-height: var(--font-2xl);
+      display: inline-block;
+      transition: all 200ms ease;
+      color: var(--color-gray-300);
+    }
+  }
+</style>

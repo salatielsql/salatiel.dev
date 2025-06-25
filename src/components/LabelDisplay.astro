@@ -1,0 +1,26 @@
+---
+type Props = {
+  text: string
+  color?: 'highlight'
+}
+
+const { color, text } = Astro.props
+---
+
+<div class:list={['label-display', color]}>{text}</div>
+
+<style>
+  .label-display {
+    font-size: var(--font-lg);
+    line-height: var(--font-2xl);
+    font-family: var(--font-pixel);
+    color: var(--color-gray-400);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    &.highlight {
+      color: var(--color-highlight);
+    }
+  }
+</style>

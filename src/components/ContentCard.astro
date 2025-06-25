@@ -1,0 +1,83 @@
+---
+import type { IconNames } from '@/types'
+import Icons from './Icons.astro'
+
+type Props = {
+  title: string
+  description: string
+  icons?: IconNames[]
+  href?: string
+}
+
+const { title, description, href, icons } = Astro.props
+---
+
+{
+  href && (
+    <a class="card" href={href}>
+      {icons && (
+        <div class="icons-row">
+          {icons.map(icon => (
+            <Icons size={20} name={icon} />
+          ))}
+        </div>
+      )}
+      <h4 class="title">{title}</h4>
+      <p class="description">{description}</p>
+    </a>
+  )
+}
+
+<style>
+  .card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    transition: all 250ms ease;
+    border: 1px solid var(--color-gray-75);
+    background-color: white;
+    border-radius: 6px;
+    padding: 1.5rem;
+
+    & .icons-row {
+      display: flex;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+    }
+
+    & > .title {
+      font-size: var(--font-lg);
+      line-height: var(--font-xl);
+      color: var(--color-gray-500);
+    }
+
+    & > .description {
+      font-size: var(--font-sm);
+      line-height: var(--font-lg);
+      color: var(--color-gray-400);
+    }
+  }
+
+  a.card {
+    &::after {
+      content: ' ↗';
+      font-family: var(--font-pixel);
+      font-size: var(--font-xl);
+      line-height: var(--font-xl);
+      color: var(--color-gray-300);
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      transition: all 250ms ease;
+    }
+
+    &:hover {
+      border-color: var(--color-highlight);
+
+      &::after {
+        color: var(--color-highlight);
+        transform: translate(4px, -4px);
+      }
+    }
+  }
+</style>

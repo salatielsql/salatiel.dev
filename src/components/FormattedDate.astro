@@ -1,0 +1,30 @@
+---
+interface Props {
+  date: Date
+  class?: string
+}
+
+const { date, class: className } = Astro.props
+---
+
+{
+  Boolean(date) && (
+    <time class:list={['formatted-date', className]} datetime={date.toISOString()}>
+      {date.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })}
+    </time>
+  )
+}
+
+<style>
+  .formatted-date {
+    font-size: var(--font-xs);
+    line-height: var(--font-base);
+    height: var(--font-base);
+    text-transform: uppercase;
+    color: var(--color-gray-300);
+  }
+</style>
