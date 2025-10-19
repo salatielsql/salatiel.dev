@@ -13,8 +13,7 @@ const topics = defineCollection({
 
 const blog = defineCollection({
   // Load Markdown and MDX files in the `src/content/blog/` directory.
-  loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-
+  loader: glob({ pattern: ['*.{md,mdx}', '!draft-*.{md,mdx}', '!disabled-*,{md,mdx}'], base: './src/content/blog' }),
   // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({

@@ -28,8 +28,7 @@ const POSTS = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
       <div class="hero-content">
         <h1>Hello, I'm Salatiel!</h1>
         <p>
-          I'm an experienced frontend developer based in <Icons name="brazil" size={24} /> Brazil. I love coding, writing
-          and cats
+          I'm an experienced frontend developer based in <Icons name="brazil" size={24} /> Brazil.
         </p>
         <p>
           Currently working at <a class="ext-link" href="https://ckl.io" rel="nofollow noreferrer">Cheesecake Labs</a>
@@ -40,7 +39,7 @@ const POSTS = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
 
   <main>
     <div class="container">
-      <LabelDisplay color="highlight" text="Featured work" />
+      <!-- <LabelDisplay color="highlight" text="Featured work" />
 
       <div class="work">
         {
@@ -48,7 +47,7 @@ const POSTS = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
             <ContentCard icons={work.icons} title={work.title} description={work.description} href={work.href} />
           ))
         }
-      </div>
+      </div> -->
 
       <LabelDisplay text="Latest posts" />
 
