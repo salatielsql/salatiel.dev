@@ -1,0 +1,205 @@
+---
+description: Project directory structure and important files reference guide
+alwaysApply: true
+---
+
+# Project Structure Guide
+
+This document outlines the directory structure and important files in the salatiel.dev Astro blog project.
+
+## Project Overview
+
+This is an **Astro** static site generator project for a personal software development blog. The project uses:
+
+- **Astro** v5+ for static site generation
+- **MDX** for blog content
+- **TypeScript** for type safety
+- **pnpm** as the package manager
+
+## Root Directory Structure
+
+```
+salatiel.dev/
+├── .cursor/              # Cursor IDE configuration
+│   ├── commands/         # Cursor command definitions
+│   └── rules/            # Cursor rules (this file location)
+├── .vscode/              # VS Code configuration
+├── public/               # Static assets served directly
+├── src/                  # Source code directory
+├── astro.config.mjs      # Astro configuration
+├── package.json          # Dependencies and scripts
+├── pnpm-lock.yaml        # Lock file for pnpm
+├── postcss.config.cjs    # PostCSS configuration
+├── tsconfig.json         # TypeScript configuration
+├── .gitignore           # Git ignore rules
+├── .nvrmrc              # Node version manager config
+├── .prettierrc          # Prettier configuration
+└── README.md            # Project documentation
+```
+
+## Source Directory (`src/`)
+
+The `src/` directory contains all application source code:
+
+### Components (`src/components/`)
+
+Reusable Astro components for the site:
+
+- **BlogStyles.astro** - Blog-specific styling component
+- **Brand.astro** - Site branding/logo component
+- **ButtonLink.astro** - Button link component
+- **ContentCard.astro** - Card component for content display
+- **Footer.astro** - Site footer component
+- **FormattedDate.astro** - Date formatting component
+- **Header.astro** - Site header/navigation
+- **HeaderLink.astro** - Header navigation link component
+- **Icons.astro** - Icon components
+- **LabelDisplay.astro** - Label/tag display component
+
+### Config (`src/config/`)
+
+Configuration files for site data:
+
+- **blog.config.ts** - Blog-specific configuration (site title, description)
+- **footer.config.ts** - Footer configuration
+- **work.config.ts** - Work/portfolio configuration
+
+### Content (`src/content/`)
+
+Content collections managed by Astro's content collections:
+
+- **blog/** - Blog post MDX files
+  - Each blog post can be a single `.mdx` file or a directory with `index.mdx` and assets
+  - Example structure:
+    ```
+    blog/
+    ├── post-slug.mdx
+    └── post-with-assets/
+        ├── index.mdx
+        └── assets/
+            └── images...
+    ```
+
+### Layouts (`src/layouts/`)
+
+Page layout templates:
+
+- **BaseLayout.astro** - Base layout wrapper for all pages
+- **BlogPost.astro** - Layout specifically for blog post pages
+
+### Pages (`src/pages/`)
+
+Astro file-based routing. Each file in `pages/` becomes a route:
+
+- **index.astro** - Home page (`/`)
+- **about.astro** - About page (`/about`)
+- **blog/index.astro** - Blog listing page (`/blog`)
+- **blog/[...slug].astro** - Dynamic blog post route (`/blog/*`)
+- **rss.xml.js** - RSS feed generator (`/rss.xml`)
+
+### Styles (`src/styles/`)
+
+Global stylesheets:
+
+- **global.css** - Global CSS styles
+
+### Utils (`src/utils/`)
+
+Utility functions:
+
+- **excerpt.ts** - Generate post excerpts
+- **getBlogUrl.ts** - Generate blog post URLs
+- **index.ts** - Utility exports
+- **parseTopicSlug.ts** - Parse topic slugs
+- **stripMarkdownAndHTML.ts** - Strip markdown/HTML from text
+
+### Root Source Files
+
+- **content.config.ts** - Content collections schema definition
+- **types.ts** - TypeScript type definitions
+
+## Public Directory (`public/`)
+
+Static assets served directly without processing:
+
+- **favicon.svg** - Site favicon
+- **fonts/** - Web font files (PPNeueBit-Bold)
+
+## Configuration Files
+
+### `astro.config.mjs`
+
+Main Astro configuration:
+
+- Site URL: `https://salatiel.dev`
+- Integrations: MDX, Sitemap
+- Markdown: Shiki syntax highlighting (light/dark themes)
+- Vite: Defines commit hash and latest update as build-time constants
+
+### `package.json`
+
+Project dependencies and scripts:
+
+- **Scripts:**
+  - `pnpm dev` - Start development server
+  - `pnpm build` - Build production site
+  - `pnpm preview` - Preview production build
+- **Key Dependencies:**
+  - `astro` - Core framework
+  - `@astrojs/mdx` - MDX support
+  - `@astrojs/rss` - RSS feed generation
+  - `@astrojs/sitemap` - Sitemap generation
+  - Font packages from `@fontsource`
+
+### `tsconfig.json`
+
+TypeScript configuration for the project.
+
+### `postcss.config.cjs`
+
+PostCSS configuration
+
+## Important Patterns
+
+### Content Collections
+
+Blog posts are managed through Astro's content collections:
+
+- Schema defined in `src/content.config.ts`
+- Posts must include: `title`, `date`, `slug`, `topics`
+- Optional: `updatedAt`
+- Topics reference a separate topics collection
+
+### File-Based Routing
+
+- Files in `src/pages/` automatically become routes
+- Dynamic routes use `[...slug].astro` syntax
+- Static routes match file names exactly
+
+### Component Organization
+
+- Reusable UI components in `src/components/`
+- Layout components in `src/layouts/`
+- Page-specific logic in `src/pages/`
+
+### Asset Management
+
+- Static assets (fonts, images) in `public/`
+- Blog post assets co-located with posts in `src/content/blog/`
+- Placeholder images in `src/assets/`
+
+## Development Workflow
+
+1. **Add new blog post**: Create `.mdx` file in `src/content/blog/`
+2. **Create new page**: Add `.astro` file to `src/pages/`
+3. **Add component**: Create `.astro` file in `src/components/`
+4. **Update styles**: Modify `src/styles/global.css`
+5. **Configure content**: Update `src/content.config.ts` for schema changes
+
+## Key Conventions
+
+- Use **kebab-case** for file names
+- Blog posts use **MDX** format with frontmatter
+- Components are **Astro components** (`.astro` files)
+- TypeScript for type safety across the project
+- **pnpm** for package management (not npm/yarn)

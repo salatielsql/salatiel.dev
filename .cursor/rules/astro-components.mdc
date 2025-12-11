@@ -1,0 +1,423 @@
+---
+description: Patterns and conventions for creating Astro components based on FormattedDate, ButtonLink, ContentCard, and Header components
+globs: src/components/**/*.astro
+alwaysApply: true
+---
+
+# Astro Component Patterns
+
+This rule defines the standard patterns and conventions for creating Astro components in this project, based on the established patterns in [FormattedDate.astro](mdc:src/components/FormattedDate.astro), [ButtonLink.astro](mdc:src/components/ButtonLink.astro), [ContentCard.astro](mdc:src/components/ContentCard.astro), and [Header.astro](mdc:src/components/Header.astro).
+
+## Component Structure
+
+All Astro components must follow this structure:
+
+```astro
+---
+// 1. Imports (types, components, configs)
+// 2. Props definition
+// 3. Props destructuring
+---
+
+<!-- 4. Component markup -->
+
+<style>
+  /* 5. Scoped styles */
+</style>
+```
+
+## Props Definition
+
+### TypeScript Types
+
+Use TypeScript `type` or `interface` for props. Prefer `type` for simple props, `interface` for more complex structures.
+
+```astro
+---
+// ✅ Good: Simple props with type
+type Props = {
+  href: string
+  title?: string
+}
+
+// ✅ Good: Complex props with interface
+interface Props {
+  date: Date
+  class?: string
+}
+
+// ✅ Good: Extending HTML attributes
+import type {HTMLAttributes} from 'astro/types'
+type Props = HTMLAttributes<'a'>
+---
+```
+
+### Props Destructuring
+
+Always destructure props from `Astro.props` in the frontmatter:
+
+```astro
+---
+type Props = {
+  href: string
+  class?: string
+}
+
+const { href, class: className } = Astro.props
+---
+```
+
+**Note**: When using `class` as a prop name, destructure it as `className` to avoid conflicts with the `class` keyword.
+
+## Conditional Rendering
+
+Use conditional rendering with boolean expressions:
+
+```astro
+---
+const { date, href } = Astro.props
+---
+
+{/* ✅ Good: Simple conditional */}
+{Boolean(date) && (
+  <time datetime={date.toISOString()}>
+    {date.toLocaleDateString()}
+  </time>
+)}
+
+{/* ✅ Good: Conditional wrapper */}
+{href && (
+  <a class="card" href={href}>
+    <slot />
+  </a>
+)}
+```
+
+## Class Management
+
+Use `class:list` for conditional classes:
+
+```astro
+---
+const { class: className, isActive } = Astro.props
+---
+
+{/* ✅ Good: Using class:list */}
+<a class:list={['navlink', className, {active: isActive}]}>
+  <slot />
+</a>
+
+{/* ✅ Good: Combining classes */}
+<time class:list={['formatted-date', className]} datetime={date.toISOString()}>
+  {date.toLocaleDateString()}
+</time>
+```
+
+## Slots
+
+Use `<slot />` for component children:
+
+```astro
+---
+type Props = {
+  href: string
+}
+
+const { href } = Astro.props
+---
+
+{/* ✅ Good: Using slot for children */}
+<a class="button-link" href={href}>
+  <slot />
+  <span class="arrow">→</span>
+</a>
+```
+
+## Styling Patterns
+
+### Scoped Styles
+
+All component styles must be scoped using the `<style>` tag (scoped by default in Astro):
+
+```astro
+<style>
+  .component-name {
+    /* Styles are automatically scoped to this component */
+  }
+</style>
+```
+
+### CSS Custom Properties
+
+Always use CSS custom properties (CSS variables) defined in [global.css](mdc:src/styles/global.css):
+
+```astro
+<style>
+  .component {
+    /* ✅ Good: Using CSS variables */
+    font-size: var(--font-xl);
+    color: var(--color-gray-400);
+    background-color: var(--color-gray-50);
+    border-color: var(--color-highlight);
+  }
+</style>
+```
+
+**Available CSS Variables:**
+- **Colors**: `--color-gray-*` (50, 75, 100, 300, 400, 500, 700, 800), `--color-highlight`, `--color-link`
+- **Fonts**: `--font-sans`, `--font-display`, `--font-pixel`, `--font-mono`
+- **Font Sizes**: `--font-xs`, `--font-sm`, `--font-base`, `--font-lg`, `--font-xl`, `--font-2xl`, `--font-3xl`, etc.
+
+### CSS Nesting
+
+Use CSS nesting syntax for child selectors and pseudo-classes:
+
+```astro
+<style>
+  .button-link {
+    color: var(--color-gray-400);
+    transition: all 200ms ease;
+
+    /* ✅ Good: Nested hover state */
+    &:hover {
+      color: var(--color-gray-700);
+
+      /* ✅ Good: Nested child selector */
+      & .arrow {
+        transform: translateX(4px);
+      }
+    }
+
+    /* ✅ Good: Nested child element */
+    .arrow {
+      display: inline-block;
+      transition: all 200ms ease;
+    }
+  }
+</style>
+```
+
+### Transitions
+
+Use transitions for interactive elements (typically 200-250ms ease):
+
+```astro
+<style>
+  .interactive-element {
+    transition: all 200ms ease; /* or 250ms ease */
+    
+    &:hover {
+      /* Transform or color changes */
+    }
+  }
+</style>
+```
+
+## Imports
+
+### Path Aliases
+
+Use the `@/` alias for imports:
+
+```astro
+---
+// ✅ Good: Using @/ alias
+import HeaderLink from '@/components/HeaderLink.astro'
+import Brand from '@/components/Brand.astro'
+import type { IconNames } from '@/types'
+import { SITE_TITLE } from '@/config/blog.config'
+---
+```
+
+### Type Imports
+
+Import types from `@/types` when needed:
+
+```astro
+---
+import type { IconNames } from '@/types'
+---
+```
+
+## Component Examples
+
+### Simple Component (ButtonLink Pattern)
+
+```astro
+---
+type Props = {
+  href: string
+}
+
+const { href } = Astro.props
+---
+
+<a class="button-link" href={href}>
+  <slot />
+  <span class="arrow">→</span>
+</a>
+
+<style>
+  .button-link {
+    font-family: var(--font-pixel);
+    font-size: var(--font-xl);
+    color: var(--color-gray-400);
+    transition: all 200ms ease;
+
+    &:hover {
+      color: var(--color-gray-700);
+    }
+  }
+</style>
+```
+
+### Component with Conditional Rendering (FormattedDate Pattern)
+
+```astro
+---
+interface Props {
+  date: Date
+  class?: string
+}
+
+const { date, class: className } = Astro.props
+---
+
+{Boolean(date) && (
+  <time class:list={['formatted-date', className]} datetime={date.toISOString()}>
+    {date.toLocaleDateString('en-us', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })}
+  </time>
+)}
+
+<style>
+  .formatted-date {
+    font-size: var(--font-xs);
+    color: var(--color-gray-300);
+  }
+</style>
+```
+
+### Component with Props and Imports (ContentCard Pattern)
+
+```astro
+---
+import type { IconNames } from '@/types'
+import Icons from './Icons.astro'
+
+type Props = {
+  title: string
+  description: string
+  icons?: IconNames[]
+  href?: string
+}
+
+const { title, description, href, icons } = Astro.props
+---
+
+{href && (
+  <a class="card" href={href}>
+    {icons && (
+      <div class="icons-row">
+        {icons.map(icon => (
+          <Icons size={20} name={icon} />
+        ))}
+      </div>
+    )}
+    <h4 class="title">{title}</h4>
+    <p class="description">{description}</p>
+  </a>
+)}
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    transition: all 250ms ease;
+    border: 1px solid var(--color-gray-75);
+    padding: 1.5rem;
+
+    & .title {
+      font-size: var(--font-lg);
+      color: var(--color-gray-500);
+    }
+
+    &:hover {
+      border-color: var(--color-highlight);
+    }
+  }
+</style>
+```
+
+### Layout Component (Header Pattern)
+
+```astro
+---
+import HeaderLink from '@/components/HeaderLink.astro'
+import Brand from '@/components/Brand.astro'
+import { SITE_TITLE } from '@/config/blog.config'
+---
+
+<header class="header">
+  <div class="container">
+    <nav class="navbar">
+      <a href="/" title={SITE_TITLE}>
+        <Brand />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    padding: 1rem 0;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+```
+
+## Best Practices
+
+1. **Type Safety**: Always define TypeScript types for props
+2. **Scoped Styles**: Never use global styles in components; use scoped `<style>` tags
+3. **CSS Variables**: Always use CSS custom properties instead of hardcoded values
+4. **Consistent Transitions**: Use 200ms or 250ms ease transitions for interactive elements
+5. **Semantic HTML**: Use appropriate HTML elements (`<header>`, `<nav>`, `<time>`, etc.)
+6. **Conditional Rendering**: Use `{ condition && ... }` for conditional markup
+7. **Class Lists**: Use `class:list` for dynamic class management
+8. **Path Aliases**: Always use `@/` alias for imports
+9. **Component Composition**: Import and use other components when needed
+10. **CSS Nesting**: Use CSS nesting for cleaner, more maintainable styles
+
+## Anti-Patterns
+
+```astro
+---
+// ❌ Bad: No type definition
+const { href } = Astro.props
+
+// ❌ Bad: Hardcoded values
+<style>
+  .component {
+    font-size: 20px; /* Should use var(--font-xl) */
+    color: #64748B; /* Should use var(--color-gray-400) */
+  }
+</style>
+
+// ❌ Bad: Global styles
+<style is:global>
+  .global-class { }
+</style>
+
+// ❌ Bad: Relative imports when alias available
+import Component from '../../components/Component.astro'
+---
+```

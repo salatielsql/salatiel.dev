@@ -1,0 +1,222 @@
+---
+description: Technology stack overview, versions, and best practices for salatiel.dev
+alwaysApply: true
+---
+
+# Technology Stack
+
+This document outlines the complete technology stack for salatiel.dev, including versions and best practices.
+
+## Core Framework
+
+### Astro v5.10.0
+
+**Purpose**: Static site generator and web framework for content-focused websites.
+
+**Best Practices**:
+- ✅ Use Astro's component islands architecture - keep JavaScript minimal and only add interactivity where needed
+- ✅ Leverage Content Collections API for type-safe markdown/MDX content
+- ✅ Use Astro's built-in image optimization with `sharp` integration
+- ✅ Prefer `.astro` components for static content, only use client-side frameworks when interactivity is required
+- ✅ Utilize Astro's View Transitions API for smooth page navigation
+- ✅ Take advantage of Astro 5's improved performance and View Transitions
+- ❌ Avoid unnecessary client-side JavaScript - Astro is designed for minimal JS by default
+- ❌ Don't use React/Vue/Svelte components unless you need client-side interactivity
+
+**Configuration**: See [astro.config.mjs](mdc:astro.config.mjs)
+
+## Content & Markdown
+
+### @astrojs/mdx v4.3.0
+
+**Purpose**: MDX support for Astro, allowing JSX components within Markdown.
+
+**Best Practices**:
+- ✅ Use MDX for blog posts that need interactive components
+- ✅ Keep MDX files in `src/content/blog/` directory structure
+- ✅ Use frontmatter for metadata with Content Collections schema validation
+- ✅ Import and use Astro components directly in MDX files
+- ❌ Avoid complex logic in MDX - extract to Astro components
+
+**Content Structure**: Blog posts are located in `src/content/blog/` with MDX format.
+
+## SEO & Content Distribution
+
+### @astrojs/rss v4.0.12
+
+**Purpose**: RSS feed generation for blog content.
+
+**Best Practices**:
+- ✅ Generate RSS feeds for blog content collections
+- ✅ Include proper metadata (title, description, pubDate) in feed items
+- ✅ Use `getRssString()` helper for custom RSS generation
+- ✅ Reference RSS feed in HTML head via `<link rel="alternate">`
+
+**Implementation**: See [src/pages/rss.xml.js](mdc:src/pages/rss.xml.js)
+
+### @astrojs/sitemap v3.4.1
+
+**Purpose**: Automatic sitemap generation for SEO.
+
+**Best Practices**:
+- ✅ Sitemap is automatically generated from all pages
+- ✅ Ensure `site` URL is correctly configured in `astro.config.mjs`
+- ✅ Sitemap is available at `/sitemap-index.xml` or `/sitemap-0.xml`
+- ✅ Verify sitemap is included in robots.txt
+
+## CSS Processing
+
+### PostCSS with autoprefixer v10.4.21 & cssnano v7.0.7
+
+**Purpose**: CSS transformation and optimization pipeline.
+
+**Best Practices**:
+- ✅ Use modern CSS features - autoprefixer handles vendor prefixes automatically
+- ✅ Write CSS in `src/styles/global.css` or component-scoped styles
+- ✅ Leverage CSS custom properties for theming
+- ✅ cssnano automatically minifies CSS in production builds
+- ✅ Use PostCSS plugins for advanced features (nesting, custom properties)
+- ❌ Don't manually add vendor prefixes - let autoprefixer handle it
+- ❌ Avoid inline styles when component-scoped styles are available
+
+**Configuration**: See [postcss.config.cjs](mdc:postcss.config.cjs)
+
+## Typography
+
+### Fontsource Packages v5.2.6
+
+**Fonts Used**:
+- `@fontsource-variable/inter-tight`
+- `@fontsource-variable/plus-jakarta-sans`
+- `@fontsource-variable/public-sans`
+- `@fontsource/caprasimo`
+
+**Best Practices**:
+- ✅ Import fonts at the component or layout level where needed
+- ✅ Use variable fonts for better performance and flexibility
+- ✅ Prefer font-display: swap for better loading performance
+- ✅ Load fonts conditionally based on page requirements
+- ❌ Don't load all fonts globally - import only what's needed per page/component
+
+## Image Processing
+
+### sharp v0.34.2
+
+**Purpose**: High-performance image processing and optimization.
+
+**Best Practices**:
+- ✅ Use Astro's built-in `<Image />` component which uses sharp
+- ✅ Always specify width and height for images to prevent layout shift
+- ✅ Use appropriate image formats (WebP, AVIF) for modern browsers
+- ✅ Leverage sharp's automatic optimization in Astro's image pipeline
+- ✅ Process images at build time, not runtime
+- ❌ Don't process images manually - use Astro's image optimization
+
+## Environment & Configuration
+
+### dotenv v16.5.0
+
+**Purpose**: Environment variable management.
+
+**Best Practices**:
+- ✅ Store sensitive data (API keys, tokens) in `.env` files
+- ✅ Use `dotenv/config` import in config files (see astro.config.mjs)
+- ✅ Never commit `.env` files to version control
+- ✅ Use environment variables for build-time configuration
+- ✅ Document required environment variables in README
+
+**Usage**: Environment variables are loaded in [astro.config.mjs](mdc:astro.config.mjs) via `import 'dotenv/config'`
+
+## TypeScript
+
+**Configuration**: Extends `astro/tsconfigs/strict` with custom paths.
+
+**Best Practices**:
+- ✅ Use strict TypeScript configuration (inherited from Astro)
+- ✅ Define types in `src/types.ts` for shared type definitions
+- ✅ Use Content Collections schemas for type-safe frontmatter
+- ✅ Leverage path aliases (`@/*`) for cleaner imports
+- ✅ Enable `strictNullChecks` for better type safety
+- ❌ Avoid `any` types - use proper TypeScript types
+
+**Configuration**: See [tsconfig.json](mdc:tsconfig.json)
+
+## Package Management
+
+### pnpm v9.15.1
+
+**Purpose**: Fast, disk space efficient package manager.
+
+**Best Practices**:
+- ✅ Always use `pnpm` commands, not `npm` or `yarn`
+- ✅ Use `pnpm install` to install dependencies
+- ✅ Use `pnpm add <package>` to add new dependencies
+- ✅ Commit `pnpm-lock.yaml` to version control
+- ✅ Use `packageManager` field in package.json (already configured)
+- ❌ Don't mix package managers - stick to pnpm consistently
+
+## Code Quality
+
+### prettier-plugin-astro v0.14.1
+
+**Purpose**: Code formatting for Astro files.
+
+**Best Practices**:
+- ✅ Format code with `prettier` before committing
+- ✅ Use Prettier configuration from `.prettierrc`
+- ✅ Format `.astro`, `.mdx`, and `.md` files
+- ✅ Integrate Prettier with your editor for auto-formatting
+- ❌ Don't disable Prettier for Astro files - use the plugin
+
+## Project Structure
+
+```
+salatiel.dev/
+├── src/
+│   ├── components/     # Astro components
+│   ├── content/        # Content Collections (blog posts)
+│   ├── layouts/        # Page layouts
+│   ├── pages/          # File-based routing
+│   ├── styles/         # Global CSS
+│   ├── config/         # Configuration files
+│   └── utils/          # Utility functions
+├── public/             # Static assets
+├── astro.config.mjs    # Astro configuration
+├── tsconfig.json       # TypeScript configuration
+└── postcss.config.cjs  # PostCSS configuration
+```
+
+## Development Commands
+
+- `pnpm dev` - Start development server (localhost:4321)
+- `pnpm build` - Build production site to `./dist/`
+- `pnpm preview` - Preview production build locally
+- `pnpm astro` - Run Astro CLI commands
+
+## Version Compatibility Notes
+
+- **Astro 5.10.0**: Latest stable version with View Transitions and improved performance
+- **MDX 4.3.0**: Compatible with Astro 5.x
+- **RSS 4.0.12**: Latest version with improved TypeScript support
+- **Sitemap 3.4.1**: Stable version compatible with Astro 5
+- **Fontsource 5.2.6**: Latest major version with improved variable font support
+- **Sharp 0.34.2**: Latest stable version with security updates
+- **PostCSS plugins**: Latest versions with modern browser support
+
+## Migration & Upgrade Considerations
+
+When upgrading dependencies:
+
+1. **Astro**: Check [Astro migration guides](https://docs.astro.build/en/migrate/) for breaking changes
+2. **MDX**: Verify component imports and frontmatter schemas still work
+3. **Fontsource**: Check for font file path changes in major versions
+4. **Sharp**: Review image processing API changes
+5. **PostCSS plugins**: Verify CSS output remains consistent
+
+## Additional Resources
+
+- [Astro Documentation](https://docs.astro.build)
+- [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
+- [MDX Documentation](https://mdxjs.com)
+- [PostCSS Documentation](https://postcss.org)
+- [Sharp Documentation](https://sharp.pixelplumbing.com)

@@ -1,63 +1,241 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import { SITE_DESCRIPTION } from '@/config/blog.config'
+
+import Header from '@/components/Header.astro'
+import Icons from '@/components/Icons.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<BaseLayout title="About Me | Salatiel" description={SITE_DESCRIPTION}>
+  <Header />
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+  <main>
+    <div class="container">
+      <div class="hero">
+        <h1>About Me</h1>
+        <p class="intro">
+          I'm an experienced frontend developer based in <Icons name="brazil" size={24} /> Brazil, passionate about building
+          modern, performant web and mobile applications.
+        </p>
+      </div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+      <div class="content">
+        <section class="section">
+          <h2>Experience</h2>
+          <p>
+            With years of experience in frontend development, I've worked on a variety of projects ranging from
+            responsive web applications to native mobile apps. I specialize in creating user-friendly interfaces that
+            are both visually appealing and highly functional.
+          </p>
+          <p>
+            My journey in frontend development has given me the opportunity to work with cutting-edge technologies and
+            frameworks, allowing me to stay current with industry best practices and emerging trends. I'm particularly
+            interested in performance optimization, user experience design, and building scalable applications.
+          </p>
+        </section>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+        <section class="section">
+          <h2>Current Role</h2>
+          <p>
+            Currently, I'm working at{' '}
+            <a class="ext-link" href="https://ckl.io" rel="nofollow noreferrer"> Cheesecake Labs </a>
+            , where I contribute to building innovative digital solutions. At Cheesecake Labs, I've had the opportunity to
+            work on exciting projects like the{' '}
+            <a class="ext-link" href="https://cheesecakelabs.com/portfolio/mgi/" rel="nofollow noreferrer">
+              MoneyGram® Wallet
+            </a>
+            , a USDC digital dollar crypto wallet app built with React Native and Node.js on top of the Stellar network.
+          </p>
+        </section>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+        <section class="section">
+          <h2>Technologies & Skills</h2>
+          <p>I work with a modern tech stack that includes:</p>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <Icons name="react" size={32} />
+              <span>React & React Native</span>
+            </div>
+            <div class="skill-item">
+              <Icons name="node" size={32} />
+              <span>Node.js</span>
+            </div>
+            <div class="skill-item">
+              <Icons name="astro" size={32} />
+              <span>Astro</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-text">TypeScript</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-text">JavaScript (ES6+)</span>
+            </div>
+            <div class="skill-item">
+              <span class="skill-text">HTML & CSS</span>
+            </div>
+          </div>
+          <p>
+            I'm also experienced with version control systems like Git, modern build tools, and various state management
+            solutions. I enjoy working with both web and mobile platforms, and I'm always eager to learn new
+            technologies that can help me build better products.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>What I Do</h2>
+          <p>As a frontend developer, I focus on:</p>
+          <ul class="focus-list">
+            <li>Building responsive and accessible user interfaces</li>
+            <li>Optimizing application performance and load times</li>
+            <li>Writing clean, maintainable, and well-documented code</li>
+            <li>Collaborating with designers and backend developers</li>
+            <li>Staying up-to-date with the latest frontend technologies and best practices</li>
+            <li>Contributing to open-source projects and sharing knowledge through blog posts</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Beyond Code</h2>
+          <p>
+            When I'm not coding, I enjoy writing technical blog posts, contributing to open-source projects, and sharing
+            my knowledge with the developer community. I believe in continuous learning and always strive to improve my
+            skills and help others grow in their careers.
+          </p>
+          <p>
+            Feel free to check out my{' '}
+            <a class="ext-link" href="/blog">blog posts</a> where I share insights, tutorials, and experiences from my development
+            journey.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    padding: 4rem 0;
+  }
+
+  .hero {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  .intro {
+    font-size: var(--font-xl);
+    color: var(--color-gray-400);
+    max-width: 48rem;
+    margin: 0 auto;
+
+    & > svg {
+      vertical-align: sub;
+    }
+  }
+
+  .content {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+
+    & h2 {
+      font-size: var(--font-3xl);
+      color: var(--color-gray-800);
+      margin-bottom: 1rem;
+    }
+
+    & p {
+      font-size: var(--font-lg);
+      line-height: 1.8;
+      color: var(--color-gray-500);
+      margin-bottom: 1rem;
+    }
+
+    & a.ext-link {
+      color: var(--color-link);
+      font-size: inherit;
+    }
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: var(--color-gray-75);
+    border-radius: 8px;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      background-color: var(--color-gray-100);
+    }
+
+    & svg {
+      flex-shrink: 0;
+    }
+
+    & span {
+      font-size: var(--font-base);
+      color: var(--color-gray-700);
+      font-weight: 500;
+    }
+  }
+
+  .skill-text {
+    font-family: var(--font-display);
+  }
+
+  .focus-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+
+    & li {
+      font-size: var(--font-lg);
+      line-height: 1.8;
+      color: var(--color-gray-500);
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.75rem;
+
+      &::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--color-link);
+        font-weight: bold;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+      font-size: var(--font-4xl);
+    }
+
+    .section h2 {
+      font-size: var(--font-2xl);
+    }
+  }
+</style>

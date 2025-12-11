@@ -1,0 +1,153 @@
+# Cursor Rules Management Guide
+
+## Rule Structure Format
+
+Every cursor rule must follow this exact metadata and content structure:
+
+**Important**: Ask the user if it should be applied globally or only to specific files.
+If it should be applied globally, set `alwaysApply: true`.
+If it should be applied only to specific files, set `alwaysApply: false` and set the `globs` to the path of the files.
+
+Example:
+
+```markdown
+---
+
+description: Short description of the rule's purpose
+globs: src/components/\*_/_.astro
+alwaysApply: false
+```
+
+````markdown
+---
+description: Short description of the rule's purpose
+globs: optional/path/pattern/**/*
+alwaysApply: false
+---
+
+# Rule Title
+
+Main content explaining the rule with markdown formatting.
+
+1. Step-by-step instructions
+2. Code examples
+3. Guidelines
+
+Example:
+
+```typescript
+// Good
+function goodExample() {
+  // Correct implementation
+}
+
+// Bad example
+function badExample() {
+  // Incorrect implementation
+}
+```
+````
+
+## File Organization
+
+### Required Location
+
+All cursor rule files **must** be placed in:
+
+```
+PROJECT_ROOT/.cursor/rules/
+```
+
+### Directory Structure
+
+```
+PROJECT_ROOT/
+├── .cursor/
+│   └── rules/
+│       ├── your-rule-name.mdc
+│       ├── another-rule.mdc
+│       └── cursor-rules.mdc
+└── ...
+```
+
+### Naming Conventions
+
+- Use **kebab-case** for all filenames
+- Always use **.mdc** extension
+- Make names **descriptive** of the rule's purpose
+- Examples: `typescript-style.mdc`, `tailwind-styling.mdc`, `mdx-documentation.mdc`
+
+## Content Guidelines
+
+### Writing Effective Rules
+
+When creating or updating cursor rules, follow this command structure:
+
+**@cursor-rules** When writing rules, you must:
+
+1. **Be specific and actionable** - Provide clear, step-by-step instructions that can be directly followed
+2. **Include code examples** - Show both good (✅) and bad (❌) practices with working code samples
+3. **Reference existing files** - Use `@filename.ext` format to link to relevant project files
+4. **Keep it focused** - One rule per concern/pattern to maintain clarity and avoid conflicts
+5. **Add context** - Explain why the rule exists and what problem it solves
+
+### Code Examples Format
+
+```typescript
+// ✅ Good: Clear and follows conventions
+function processUser({ id, name }: { id: string; name: string }) {
+  return { id, displayName: name }
+}
+
+// ❌ Bad: Unclear parameter passing
+function processUser(id: string, name: string) {
+  return { id, displayName: name }
+}
+```
+
+### File References
+
+When referencing project files in rules, use this pattern to mention other files:
+
+```markdown
+[file.tsx](mdc:path/to/file.tsx)
+```
+
+## Forbidden Locations
+
+**Never** place rule files in:
+
+- Project root directory
+- Any subdirectory outside `.cursor/rules/`
+- Component directories
+- Source code folders
+- Documentation folders
+
+## Rule Categories
+
+Organize rules by purpose:
+
+- **Code Style**: `typescript-style.mdc`, `css-conventions.mdc`
+- **Architecture**: `component-patterns.mdc`, `folder-structure.mdc`
+- **Documentation**: `mdx-documentation.mdc`, `readme-format.mdc`
+- **Tools**: `testing-patterns.mdc`, `build-config.mdc`
+- **Meta**: `cursor-rules.mdc`, `self-improve.mdc`
+
+## Best Practices
+
+### Rule Creation Checklist
+
+- [ ] File placed in `.cursor/rules/` directory
+- [ ] Filename uses kebab-case with `.mdc` extension
+- [ ] Includes proper metadata section
+- [ ] Contains clear title and sections
+- [ ] Provides both good and bad examples
+- [ ] References relevant project files
+- [ ] Follows consistent formatting
+
+### Maintenance
+
+- **Review regularly** - Keep rules up to date with codebase changes
+- **Update examples** - Ensure code samples reflect current patterns
+- **Cross-reference** - Link related rules together
+- **Document changes** - Update rules when patterns evolve
