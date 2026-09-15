@@ -1,0 +1,51 @@
+---
+import Avatar from '@/ui/Avatar.astro'
+import Button from '@/ui/Button.astro'
+
+type Props = {
+  author: string
+  date: string
+  copyLabel?: string
+}
+
+const { author, date, copyLabel = 'Copy as markdown' } = Astro.props
+---
+
+<div class="post-meta">
+  <Avatar name={author} />
+  <span class="post-meta__author">{author}</span>
+  <span class="post-meta__dot">·</span>
+  <time class="post-meta__date" datetime={date}>{date}</time>
+  <div class="post-meta__spacer"></div>
+  <Button size="sm"><slot name="action">{copyLabel}</slot></Button>
+</div>
+
+<style>
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ds-space-5);
+    padding-bottom: var(--ds-space-9);
+    border-bottom: 1px solid var(--ds-color-border);
+
+    & .post-meta__author {
+      font-size: var(--ds-font-size-sm);
+      color: var(--ds-color-text-muted);
+    }
+
+    & .post-meta__dot {
+      color: var(--ds-color-dot);
+    }
+
+    & .post-meta__date {
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-xs);
+      color: var(--ds-color-text-faint);
+    }
+
+    & .post-meta__spacer {
+      flex: 1;
+    }
+  }
+</style>

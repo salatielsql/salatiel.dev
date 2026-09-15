@@ -1,0 +1,57 @@
+---
+import PageLayout from '@/components/PageLayout.astro'
+import GutterRow from '@/components/GutterRow.astro'
+import CodeBlock from '@/components/CodeBlock.astro'
+import ExperimentListingRow from '@/components/ExperimentListingRow.astro'
+import { Code } from 'astro:components'
+import { getCollection } from 'astro:content'
+
+const experiments = (await getCollection('experiments', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+)
+
+const snippet = `function mergeUpdate(local: NoteState, remote: NoteState): NoteState {
+  // last-writer-wins per field, compared by Lamport timestamp
+  return {
+    text: remote.textTimestamp > local.textTimestamp ? remote.text : local.text,
+    textTimestamp: Math.max(local.textTimestamp, remote.textTimestamp),
+  }
+}`
+---
+
+<PageLayout title="Experiments">
+  <GutterRow mark="">
+    <p>Smaller, rougher than <a href="/projects">projects</a> — things I tried to see if they'd work.</p>
+  </GutterRow>
+
+  <GutterRow mark="```">
+    <CodeBlock lang="agent-context">
+      {`┌─ agent-context ───────────────────────┐
+│ page: experiments                      │
+│ subject: prototypes                    │
+│ topics: css, performance, local-first  │
+│ format: annotated-markdown             │
+└─────────────────────────────────────────┘`}
+    </CodeBlock>
+  </GutterRow>
+
+  <div class="gutter-row">
+    <span class="gutter-mark">- [x]<br />- [x]<br />- [x]<br />- [ ]<br />- [ ]<br />- [ ]</span>
+    <div class="gutter-content">
+      <ul>
+        <li><label><input type="checkbox" checked disabled /> Prototype scroll-driven animations without JS</label></li>
+        <li><label><input type="checkbox" checked disabled /> Benchmark edge runtime cold starts</label></li>
+        <li><label><input type="checkbox" checked disabled /> Try a CRDT for local-first sync</label></li>
+        <li><label><input type="checkbox" disabled /> Test the View Transitions API across a full route change</label></li>
+        <li><label><input type="checkbox" disabled /> Compare Rust vs. Go for the snapcache backend</label></li>
+        <li><label><input type="checkbox" disabled /> Try container queries on the blog listing grid</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <GutterRow mark="```">
+    <Code code={snippet} lang="ts" theme="one-light" />
+  </GutterRow>
+
+  {experiments.map((experiment) => <ExperimentListingRow entry={experiment} />)}
+</PageLayout>

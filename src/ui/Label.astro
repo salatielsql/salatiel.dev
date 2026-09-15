@@ -1,0 +1,30 @@
+---
+type Props = {
+  as?: 'div' | 'span' | 'p' | 'h2' | 'h3'
+  variant?: 'eyebrow' | 'section'
+}
+
+const { as: Tag = 'div', variant = 'eyebrow' } = Astro.props
+---
+
+<Tag class:list={['label', `label--${variant}`]}><slot /></Tag>
+
+<style>
+  .label {
+    margin: 0;
+    font-family: var(--ds-font-mono);
+
+    &.label--eyebrow {
+      font-size: var(--ds-font-size-xs);
+      color: var(--ds-color-text-faint);
+    }
+
+    &.label--section {
+      font-size: var(--ds-font-size-2xs);
+      font-weight: 600;
+      letter-spacing: var(--ds-letter-spacing-wide);
+      text-transform: uppercase;
+      color: var(--ds-color-text-subtle);
+    }
+  }
+</style>

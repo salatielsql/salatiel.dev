@@ -1,0 +1,37 @@
+---
+type Props = {
+  href: string
+  date: string
+  title: string
+}
+
+const { href, date, title } = Astro.props
+---
+
+<a href={href} class="archive-entry">
+  <time class="archive-entry__date" datetime={date}>{date}</time>
+  <span class="archive-entry__title">{title}</span>
+</a>
+
+<style>
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    gap: var(--ds-space-6);
+    font-size: 0.96875rem;
+    line-height: 1.5;
+    color: var(--ds-color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--ds-color-accent);
+    }
+
+    & .archive-entry__date {
+      flex: 0 0 4.75rem;
+      font-family: var(--ds-font-mono);
+      font-size: 0.71875rem;
+      color: var(--ds-color-text-subtle);
+    }
+  }
+</style>

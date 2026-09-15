@@ -1,0 +1,41 @@
+---
+type Props = {
+  caption: string
+}
+
+const { caption } = Astro.props
+---
+
+<figure class="figure-placeholder">
+  <div class="figure-placeholder__frame">diagram placeholder — {caption}</div>
+  <figcaption class="figure-placeholder__caption">{caption}</figcaption>
+</figure>
+
+<style>
+  .figure-placeholder {
+    margin: 0;
+
+    & .figure-placeholder__frame {
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--ds-color-figure-border);
+      border-radius: var(--ds-radius-lg);
+      background: repeating-linear-gradient(
+        45deg,
+        var(--ds-color-row-hover-bg) 0 10px,
+        var(--ds-color-figure-stripe) 10px 20px
+      );
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-xs);
+      color: var(--ds-color-text-subtle);
+    }
+
+    & .figure-placeholder__caption {
+      margin-top: var(--ds-space-4);
+      font-size: var(--ds-font-size-sm);
+      color: var(--ds-color-text-faint);
+    }
+  }
+</style>

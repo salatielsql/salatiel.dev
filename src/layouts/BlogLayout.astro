@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Sidebar from '@/ui/Sidebar.astro'
+
+type NavItem = {
+  href: string
+  label: string
+  shortcut?: string
+}
+
+type SimpleLink = {
+  href: string
+  label: string
+}
+
+type RecentPost = {
+  href: string
+  title: string
+  active?: boolean
+}
+
+type Props = {
+  title: string
+  siteName: string
+  section: string
+  homeHref: string
+  navItems: NavItem[]
+  writingLinks: SimpleLink[]
+  recentPosts: RecentPost[]
+  elsewhereLinks: SimpleLink[]
+  copyright: string
+  contactHref: string
+  contactLabel: string
+}
+
+const {
+  title,
+  siteName,
+  section,
+  homeHref,
+  navItems,
+  writingLinks,
+  recentPosts,
+  elsewhereLinks,
+  copyright,
+  contactHref,
+  contactLabel,
+} = Astro.props
+---
+
+<BaseLayout
+  title={title}
+  siteName={siteName}
+  section={section}
+  homeHref={homeHref}
+  navItems={navItems}
+  copyright={copyright}
+  contactHref={contactHref}
+  contactLabel={contactLabel}
+>
+  <div class="blog-layout__shell">
+    <Sidebar writingLinks={writingLinks} recentPosts={recentPosts} elsewhereLinks={elsewhereLinks} />
+    <div class="blog-layout__main"><slot /></div>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-layout__shell {
+    display: grid;
+    grid-template-columns: minmax(0, 236px) minmax(0, 1fr);
+    align-items: start;
+
+    & .blog-layout__main {
+      min-width: 0;
+    }
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+import PageLayout from '@/components/PageLayout.astro'
+import GutterRow from '@/components/GutterRow.astro'
+import CodeBlock from '@/components/CodeBlock.astro'
+import { resume } from '@/data/resume'
+import { RESUME_PDF_URL } from '@/lib/placeholders'
+
+const skillsBlock = resume.skills.map((group) => `${group.category}: ${group.items.join(', ')}`).join('\n')
+---
+
+<PageLayout
+  title="Resume"
+  frontmatterRows={[{ label: 'pdf', value: RESUME_PDF_URL, href: RESUME_PDF_URL }]}
+>
+  <GutterRow mark="#" variant="heading">
+    <h1>{resume.headline}</h1>
+  </GutterRow>
+  <GutterRow mark="">
+    <p>{resume.summary}</p>
+  </GutterRow>
+
+  <GutterRow mark="##" variant="heading">
+    <h2>Experience</h2>
+  </GutterRow>
+  {
+    resume.experience.map((job) => (
+      <GutterRow mark={job.start}>
+        <div class="resume-entry-header">
+          <span class="resume-entry-header__title">
+            {job.role} · {job.company}
+          </span>
+          <span class="resume-entry-header__period">
+            {job.start} — {job.end}
+          </span>
+        </div>
+        <ul>
+          {job.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      </GutterRow>
+    ))
+  }
+
+  <GutterRow mark="##" variant="heading">
+    <h2>Education</h2>
+  </GutterRow>
+  {
+    resume.education.map((edu) => (
+      <GutterRow mark={edu.start}>
+        <div class="resume-entry-header">
+          <span class="resume-entry-header__title">
+            {edu.degree} · {edu.institution}
+          </span>
+          <span class="resume-entry-header__period">
+            {edu.start} — {edu.end}
+          </span>
+        </div>
+      </GutterRow>
+    ))
+  }
+
+  <GutterRow mark="##" variant="heading">
+    <h2>Skills</h2>
+  </GutterRow>
+  <GutterRow mark="```">
+    <CodeBlock>{skillsBlock}</CodeBlock>
+  </GutterRow>
+</PageLayout>
+
+<style>
+  .resume-entry-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+
+    &__title {
+      font-weight: 700;
+      color: var(--color-heading);
+    }
+
+    &__period {
+      white-space: nowrap;
+      color: var(--color-gutter-mark);
+      font-family: var(--font-mono);
+      font-size: var(--font-size-small);
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import NavLink from '@/ui/NavLink.astro'
+import Label from '@/ui/Label.astro'
+
+type SimpleLink = {
+  href: string
+  label: string
+}
+
+type RecentPost = {
+  href: string
+  title: string
+  active?: boolean
+}
+
+type Props = {
+  writingLinks: SimpleLink[]
+  recentPosts: RecentPost[]
+  elsewhereLinks: SimpleLink[]
+}
+
+const { writingLinks, recentPosts, elsewhereLinks } = Astro.props
+---
+
+<aside class="sidebar">
+  <div class="sidebar__section-label"><Label variant="section">Writing</Label></div>
+  {writingLinks.map((link) => <NavLink variant="block" href={link.href}>{link.label}</NavLink>)}
+
+  <div class="sidebar__section-label sidebar__section-label--spaced"><Label variant="section">Recent</Label></div>
+  <div class="sidebar__recent">
+    {
+      recentPosts.map((post) => (
+        <a
+          href={post.href}
+          class:list={['sidebar__recent-link', { 'sidebar__recent-link--active': post.active }]}
+        >
+          {post.title}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="sidebar__section-label sidebar__section-label--spaced"><Label variant="section">Elsewhere</Label></div>
+  {elsewhereLinks.map((link) => <NavLink variant="block" href={link.href}>{link.label}</NavLink>)}
+</aside>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: 3.25rem;
+    padding: var(--ds-space-10) var(--ds-space-6) var(--ds-space-12) var(--ds-space-9);
+    border-right: 1px solid var(--ds-color-border);
+    min-height: calc(100vh - 3.25rem);
+
+    & .sidebar__section-label {
+      margin-bottom: var(--ds-space-5);
+
+      &.sidebar__section-label--spaced {
+        margin-top: var(--ds-space-9);
+      }
+    }
+
+    & .sidebar__recent {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border-left: 1px solid var(--ds-color-border);
+      margin-left: 1px;
+    }
+
+    & .sidebar__recent-link {
+      padding: var(--ds-space-3) var(--ds-space-4);
+      margin-left: -1px;
+      font-size: 0.84375rem;
+      line-height: 1.35;
+      color: var(--ds-color-text-secondary);
+      border-left: 2px solid transparent;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--ds-color-text);
+      }
+
+      &.sidebar__recent-link--active {
+        color: var(--ds-color-accent);
+        border-left-color: var(--ds-color-accent);
+      }
+    }
+  }
+</style>

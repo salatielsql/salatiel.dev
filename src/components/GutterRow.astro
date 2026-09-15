@@ -1,0 +1,15 @@
+---
+type Props = {
+  mark: string
+  variant?: 'default' | 'heading' | 'label'
+}
+
+const { mark, variant = 'default' } = Astro.props
+---
+
+<div class:list={['gutter-row', variant === 'heading' && 'gutter-row--heading']}>
+  <span class:list={['gutter-mark', variant === 'heading' && 'gutter-mark--heading', variant === 'label' && 'gutter-mark--label']}>{mark}</span>
+  <div class="gutter-content">
+    <slot />
+  </div>
+</div>

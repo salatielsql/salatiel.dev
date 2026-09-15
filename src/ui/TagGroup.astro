@@ -1,0 +1,60 @@
+---
+import ArchiveEntry from '@/ui/ArchiveEntry.astro'
+
+type Entry = {
+  href: string
+  date: string
+  title: string
+}
+
+type Props = {
+  name: string
+  count: string
+  entries: Entry[]
+}
+
+const { name, count, entries } = Astro.props
+---
+
+<section class="tag-group">
+  <div class="tag-group__header">
+    <h2 class="tag-group__name">{name}</h2>
+    <span class="tag-group__count">{count}</span>
+  </div>
+  <div class="tag-group__entries">
+    {entries.map((entry) => <ArchiveEntry {...entry} />)}
+  </div>
+</section>
+
+<style>
+  .tag-group {
+    padding: var(--ds-space-8) 0;
+    border-top: 1px solid var(--ds-color-border);
+
+    & .tag-group__header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--ds-space-4);
+      margin-bottom: var(--ds-space-6);
+    }
+
+    & .tag-group__name {
+      margin: 0;
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-sm);
+      font-weight: 500;
+      color: var(--ds-color-accent);
+    }
+
+    & .tag-group__count {
+      font-size: var(--ds-font-size-xs);
+      color: var(--ds-color-text-subtle);
+    }
+
+    & .tag-group__entries {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-space-4);
+    }
+  }
+</style>

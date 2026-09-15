@@ -1,57 +1,39 @@
 // @ts-check
-import 'dotenv/config'
+import { defineConfig, fontProviders } from 'astro/config'
 
-import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
-import sitemap from '@astrojs/sitemap'
-import dp from 'node:child_process'
-
-const commitHash = dp.execSync('git rev-parse --short HEAD').toString()
-console.log(`commit hash: ${commitHash}`)
-
-let latestUpdate = null
-
-const fetchCommitData = async () => {
-  const url = `https://api.github.com/repos/salatielsql/salatiel.dev/commits/${commitHash}`
-
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`,
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  })
-
-  const json = await response.json()
-  return json
-}
-
-try {
-  const commitData = await fetchCommitData()
-  latestUpdate = commitData.commit.committer.date ? commitData.commit.committer.date : null
-  console.log('commit last update', latestUpdate)
-} catch (e) {
-  // @ts-ignore
-  console.error(`fetching commit ${commitHash} data failed with mesasge: ${e.message}`, JSON.stringify(e))
-}
+import { unified } from '@astrojs/markdown-remark'
+import { rehypeBracketLinks } from './src/lib/markdown/rehype-bracket-links.ts'
+import { rehypeGutterMarks } from './src/lib/markdown/rehype-gutter-marks.ts'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://salatiel.dev',
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx()],
+  fonts: [
+    {
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      provider: fontProviders.fontsource(),
+      weights: [400, 700],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['monospace'],
+    },
+    {
+      name: 'Instrument Sans',
+      cssVariable: '--font-instrument-sans',
+      provider: fontProviders.fontsource(),
+      weights: [400, 500, 600, 700],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+  ],
   markdown: {
-    shikiConfig: {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-    },
-  },
-  vite: {
-    define: {
-      __COMMIT_HASH__: JSON.stringify(commitHash),
-      __LATEST_UPDATE__: JSON.stringify(latestUpdate || ''),
-    },
+    shikiConfig: { theme: 'one-light' },
+    syntaxHighlight: { type: 'shiki', excludeLangs: ['math', 'agent-context'] },
+    processor: unified({
+      rehypePlugins: [rehypeGutterMarks, rehypeBracketLinks],
+    }),
   },
 })

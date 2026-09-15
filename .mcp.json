@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "fallow": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["--no", "fallow-mcp"]
+    }
+  }
+}

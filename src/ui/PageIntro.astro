@@ -1,0 +1,41 @@
+---
+import Label from '@/ui/Label.astro'
+
+type Props = {
+  eyebrow: string
+  title: string
+}
+
+const { eyebrow, title } = Astro.props
+---
+
+<div class="page-intro">
+  <div class="page-intro__eyebrow"><Label variant="eyebrow">{eyebrow}</Label></div>
+  <h1 class="page-intro__title">{title}</h1>
+  <p class="page-intro__description"><slot /></p>
+</div>
+
+<style>
+  .page-intro {
+    & .page-intro__eyebrow {
+      margin-bottom: var(--ds-space-5);
+    }
+
+    & .page-intro__title {
+      margin: 0 0 var(--ds-space-5);
+      font-size: var(--ds-font-size-h1);
+      line-height: 1.1;
+      letter-spacing: var(--ds-letter-spacing-tight);
+      font-weight: 600;
+      color: var(--ds-color-text);
+    }
+
+    & .page-intro__description {
+      margin: 0 0 var(--ds-space-11);
+      max-width: 56ch;
+      font-size: var(--ds-font-size-md);
+      line-height: var(--ds-line-height-body);
+      color: var(--ds-color-text-muted);
+    }
+  }
+</style>

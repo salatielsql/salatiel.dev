@@ -2,28 +2,57 @@
   "name": "salatiel.dev",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@11.18.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier . --write --ignore-unknown",
+    "lint": "oxlint --format=agent",
+    "lint:fix": "oxlint --fix",
+    "quality:dead-code": "pnpm fallow dead-code --format compact",
+    "quality:dupes": "pnpm fallow dupes",
+    "quality:score": "pnpm fallow health",
+    "quality:audit": "pnpm fallow audit --gate new-only",
+    "check-code-quality": "pnpm run lint:fix || true && concurrently --group --prefix command -l 24 \"pnpm run lint\" \"pnpm run check\" \"pnpm run typecheck\" \"pnpm run quality:audit\"",
+    "prepare": "husky"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "jsxSingleQuote": false,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "lint-staged": {
+    "**/*": [
+      "pnpm run format",
+      "pnpm run check-code-quality"
+    ]
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.0",
-    "@astrojs/rss": "^4.0.12",
-    "@astrojs/sitemap": "^3.4.1",
-    "@fontsource-variable/inter-tight": "^5.2.6",
-    "@fontsource-variable/plus-jakarta-sans": "^5.2.6",
-    "@fontsource-variable/public-sans": "^5.2.6",
-    "@fontsource/caprasimo": "^5.2.6",
-    "astro": "^5.10.0",
-    "autoprefixer": "^10.4.21",
-    "cssnano": "^7.0.7",
-    "dotenv": "^16.5.0",
-    "sharp": "^0.34.2"
+    "@astrojs/markdown-remark": "^7.2.2",
+    "@astrojs/mdx": "^7.0.5",
+    "astro": "^7.2.2",
+    "unist-util-visit": "^5.1.0"
   },
-  "packageManager": "pnpm@9.15.1+sha1.abc117858086cb10ecb54828d180b035cb6c8fdd",
   "devDependencies": {
-    "prettier-plugin-astro": "^0.14.1"
+    "@astrojs/check": "^0.9.10",
+    "@oxlint/plugins": "1.83.0",
+    "@types/hast": "^3.0.5",
+    "concurrently": "^10.0.5",
+    "fallow": "^3.25.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "oxlint": "^1.83.0",
+    "prettier": "3.9.6",
+    "typescript": "^5.9.3"
   }
 }

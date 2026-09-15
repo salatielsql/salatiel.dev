@@ -1,0 +1,41 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+type Props = HTMLAttributes<'button'> & {
+  size?: 'sm' | 'xs'
+}
+
+const { size = 'sm', class: className, ...rest } = Astro.props
+---
+
+<button class:list={['button', `button--${size}`, className]} {...rest}>
+  <slot />
+</button>
+
+<style>
+  .button {
+    font-family: var(--ds-font-mono);
+    color: var(--ds-color-text-nav);
+    background: var(--ds-color-bg);
+    border: 1px solid var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--ds-transition-fast);
+
+    &:hover {
+      background: var(--ds-color-hover-bg);
+    }
+
+    &.button--sm {
+      font-size: var(--ds-font-size-2xs);
+      padding: var(--ds-space-3) var(--ds-space-5);
+    }
+
+    &.button--xs {
+      font-size: 0.6875rem;
+      border-radius: var(--ds-radius-sm);
+      padding: 0.1875rem var(--ds-space-4);
+    }
+  }
+</style>

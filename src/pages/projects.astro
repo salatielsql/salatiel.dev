@@ -1,0 +1,19 @@
+---
+import PageLayout from '@/components/PageLayout.astro'
+import GutterRow from '@/components/GutterRow.astro'
+import ProjectListingRow from '@/components/ProjectListingRow.astro'
+import { getCollection } from 'astro:content'
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1
+
+  return b.data.date.valueOf() - a.data.date.valueOf()
+})
+---
+
+<PageLayout title="Projects">
+  <GutterRow mark="">
+    <p>Things I've built and kept running long enough to be worth listing.</p>
+  </GutterRow>
+  {projects.map((project) => <ProjectListingRow entry={project} />)}
+</PageLayout>

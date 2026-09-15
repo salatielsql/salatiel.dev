@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import GutterRow from '@/components/GutterRow.astro'
+import BracketLink from '@/components/BracketLink.astro'
+import { formatDate } from '@/lib/format-date'
+
+type Props = {
+  entry: CollectionEntry<'blog'>
+}
+
+const { entry } = Astro.props
+---
+
+<GutterRow mark="-">
+  <article class="blog-listing-row">
+    <h3 class="blog-listing-row__title">
+      <BracketLink href={`/blog/${entry.id}`}>{entry.data.title}</BracketLink>
+    </h3>
+    <time class="blog-listing-row__date" datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time>
+    <p class="blog-listing-row__description">{entry.data.description}</p>
+  </article>
+</GutterRow>
+
+<style>
+  .blog-listing-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .blog-listing-row__title {
+    margin: 0;
+    font-size: var(--font-size-h5);
+  }
+
+  .blog-listing-row__date {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-small);
+    color: var(--color-gutter-mark);
+  }
+
+  .blog-listing-row__description {
+    margin: 0;
+    color: var(--color-body);
+  }
+</style>

@@ -1,29 +1,54 @@
+import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
-import { defineCollection, reference, z } from 'astro:content'
+import { z } from 'astro/zod'
 
-import { ICON_NAMES, TOPICS } from '@/types'
-
-const topics = defineCollection({
-  type: 'data',
-  schema: z.object({
-    name: z.enum(TOPICS),
-    icon: z.enum(ICON_NAMES),
-  }),
+const baseSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  date: z.coerce.date(),
+  tags: z.array(z.string()).default([]),
+  draft: z.boolean().default(false),
 })
 
 const blog = defineCollection({
-  // Load Markdown and MDX files in the `src/content/blog/` directory.
-  loader: glob({ pattern: ['*.{md,mdx}', '!draft-*.{md,mdx}', '!disabled-*,{md,mdx}'], base: './src/content/blog' }),
-  // Type-check frontmatter using a schema
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      // Transform string to Date object
-      date: z.coerce.date(),
-      slug: z.string(),
-      topics: z.array(reference('topics')),
-      updatedAt: z.coerce.date().optional(),
-    }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: baseSchema.extend({
+    updatedAt: z.coerce.date().optional(),
+  }),
 })
 
-export const collections = { blog, topics }
+const experiments = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/experiments' }),
+  schema: baseSchema.extend({
+    repo: z.url().optional(),
+    demo: z.url().optional(),
+  }),
+})
+
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
+  schema: baseSchema.extend({
+    repo: z.url().optional(),
+    url: z.url().optional(),
+    featured: z.boolean().default(false),
+    archived: z.boolean().default(false),
+  }),
+})
+
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(),
+    frontmatterRows: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          href: z.url().optional(),
+        })
+      )
+      .default([]),
+  }),
+})
+
+export const collections = { blog, experiments, projects, pages }

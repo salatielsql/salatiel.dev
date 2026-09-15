@@ -1,0 +1,153 @@
+- generic [active] [ref=f164e1]:
+    - generic [ref=f164e2]:
+        - banner [ref=f164e3]:
+            - generic [ref=f164e4]:
+                - link "salatiel / ui-kit" [ref=f164e5] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=f164e7]: salatiel
+                    - generic [ref=f164e8]: /
+                    - generic [ref=f164e9]: ui-kit
+                - navigation [ref=f164e10]:
+                    - link "B Blog" [ref=f164e11] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f164e12]: B
+                        - text: Blog
+                    - link "T Topics" [ref=f164e13] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f164e14]: T
+                        - text: Topics
+                    - link "G GitHub" [ref=f164e15] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f164e16]: G
+                        - text: GitHub
+        - generic [ref=f164e17]:
+            - complementary [ref=f164e18]:
+                - generic [ref=f164e19]: Writing
+                - link "All posts" [ref=f164e21] [cursor=pointer]:
+                    - /url: '#'
+                - link "Topics" [ref=f164e22] [cursor=pointer]:
+                    - /url: '#'
+                - generic [ref=f164e23]: Recent
+                - generic [ref=f164e25]:
+                    - link "Why we stopped hiding the delegation chain" [ref=f164e26] [cursor=pointer]:
+                        - /url: '#'
+                    - link "Scopes are a product surface, not a config file" [ref=f164e27] [cursor=pointer]:
+                        - /url: '#'
+                    - link "Rate limits belong to the grant, not the key" [ref=f164e28] [cursor=pointer]:
+                        - /url: '#'
+                - generic [ref=f164e29]: Elsewhere
+                - link "Changelog" [ref=f164e31] [cursor=pointer]:
+                    - /url: '#'
+                - link "RSS" [ref=f164e32] [cursor=pointer]:
+                    - /url: '#'
+            - main [ref=f164e33]:
+                - generic [ref=f164e34]:
+                    - generic [ref=f164e35]:
+                        - generic [ref=f164e36]: UI Kit
+                        - heading "Design system showcase" [level=1] [ref=f164e38]
+                        - paragraph [ref=f164e39]: 'Amostra de todos os componentes de `src/ui`, para conferência visual contra o mockup de referência.'
+                    - generic [ref=f164e40]:
+                        - heading "Rótulos" [level=2] [ref=f164e41]
+                        - generic [ref=f164e42]:
+                            - generic [ref=f164e43]: Engineering
+                            - generic [ref=f164e44]: Writing
+                    - generic [ref=f164e45]:
+                        - heading "Avatar & Button" [level=2] [ref=f164e46]
+                        - generic [ref=f164e47]:
+                            - generic [ref=f164e48]: NF
+                            - button "Copy as markdown" [ref=f164e49] [cursor=pointer]
+                            - button "Copy" [ref=f164e50] [cursor=pointer]
+                    - generic [ref=f164e51]:
+                        - heading "NavLink" [level=2] [ref=f164e52]
+                        - generic [ref=f164e53]:
+                            - link "B Blog" [ref=f164e54] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f164e55]: B
+                                - text: Blog
+                            - link "All posts" [ref=f164e56] [cursor=pointer]:
+                                - /url: '#'
+                    - generic [ref=f164e57]:
+                        - heading "PostListItem" [level=2] [ref=f164e58]
+                        - link "2026-09-02 · Identity Machine identity is not a user with a longer password Every sistema que já lançamos tentou, mais cedo ou mais tarde, modelar um agente como se fosse um usuário." [ref=f164e59] [cursor=pointer]:
+                            - /url: '#'
+                            - generic [ref=f164e60]:
+                                - time [ref=f164e61]: 2026-09-02
+                                - generic [ref=f164e62]: ·
+                                - generic [ref=f164e63]: Identity
+                            - generic [ref=f164e64]: Machine identity is not a user with a longer password
+                            - generic [ref=f164e65]: Every sistema que já lançamos tentou, mais cedo ou mais tarde, modelar um agente como se fosse um usuário.
+                    - generic [ref=f164e66]:
+                        - heading "TagGroup" [level=2] [ref=f164e67]
+                        - generic [ref=f164e68]:
+                            - generic [ref=f164e69]:
+                                - heading "Identity" [level=2] [ref=f164e70]
+                                - generic [ref=f164e71]: 2 posts
+                            - generic [ref=f164e72]:
+                                - link "2026-09-02 Machine identity is not a user with a longer password" [ref=f164e73] [cursor=pointer]:
+                                    - /url: '#'
+                                    - time [ref=f164e74]: 2026-09-02
+                                    - generic [ref=f164e75]: Machine identity is not a user with a longer password
+                                - link "2026-07-28 Why we stopped hiding the delegation chain" [ref=f164e76] [cursor=pointer]:
+                                    - /url: '#'
+                                    - time [ref=f164e77]: 2026-07-28
+                                    - generic [ref=f164e78]: Why we stopped hiding the delegation chain
+                    - generic [ref=f164e79]:
+                        - heading "PostMeta" [level=2] [ref=f164e80]
+                        - generic [ref=f164e81]:
+                            - generic [ref=f164e82]: NF
+                            - generic [ref=f164e83]: Nadia Frost
+                            - generic [ref=f164e84]: ·
+                            - time [ref=f164e85]: 2026-09-02
+                            - button "Copy as markdown" [ref=f164e86] [cursor=pointer]
+                    - generic [ref=f164e87]:
+                        - heading "Callout" [level=2] [ref=f164e88]
+                        - generic [ref=f164e89]:
+                            - generic [ref=f164e90]: NOTE
+                            - generic [ref=f164e91]: Um grant tem um único assunto. Uma ação de agente tem pelo menos dois — o agente e o principal em nome de quem ele agiu.
+                    - generic [ref=f164e92]:
+                        - heading "CodeBlock" [level=2] [ref=f164e93]
+                        - generic [ref=f164e94]:
+                            - generic [ref=f164e95]:
+                                - generic [ref=f164e96]: registration.ts
+                                - button "Copy" [ref=f164e97] [cursor=pointer]
+                            - generic [ref=f164e98]: 'const grant = await grants.issue({ principal: user.id, agent: agent.id, scopes: ["calendar.read"], });'
+                    - generic [ref=f164e99]:
+                        - heading "Blockquote" [level=2] [ref=f164e100]
+                        - blockquote [ref=f164e101]: Se o log de auditoria não consegue nomear um humano, a feature não está pronta.
+                    - generic [ref=f164e102]:
+                        - heading "FigurePlaceholder" [level=2] [ref=f164e103]
+                        - figure "Principal, agente e grant — e as duas perguntas que cada registro responde." [ref=f164e104]:
+                            - generic [ref=f164e105]: diagram placeholder — Principal, agente e grant — e as duas perguntas que cada registro responde.
+                    - generic [ref=f164e107]:
+                        - heading "PrevNextNav" [level=2] [ref=f164e108]
+                        - generic [ref=f164e109]:
+                            - link "← Previous Scopes are a product surface, not a config file" [ref=f164e110] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f164e111]: ← Previous
+                                - generic [ref=f164e112]: Scopes are a product surface, not a config file
+                            - link "Next → Our token lifetimes were a guess for two years" [ref=f164e113] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f164e114]: Next →
+                                - generic [ref=f164e115]: Our token lifetimes were a guess for two years
+                    - generic [ref=f164e116]:
+                        - heading "TableOfContents" [level=2] [ref=f164e117]
+                        - navigation [ref=f164e118]:
+                            - generic [ref=f164e119]:
+                                - generic [ref=f164e120]: On this page
+                                - generic [ref=f164e122]:
+                                    - link "The shortcut and its bill" [ref=f164e123] [cursor=pointer]:
+                                        - /url: '#s1'
+                                    - link "What we model instead" [ref=f164e124] [cursor=pointer]:
+                                        - /url: '#s2'
+                                    - link "Where this gets uncomfortable" [ref=f164e125] [cursor=pointer]:
+                                        - /url: '#s3'
+        - contentinfo [ref=f164e126]:
+            - generic [ref=f164e127]:
+                - generic [ref=f164e128]: © 2026 salatiel.dev
+                - link "example@example.com" [ref=f164e129] [cursor=pointer]:
+                    - /url: mailto:example@example.com
+    - generic [ref=f164e132]:
+        - button [ref=f164e133]
+        - button [ref=f164e139]
+        - button [ref=f164e143]
+        - button [ref=f164e148]

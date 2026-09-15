@@ -1,0 +1,50 @@
+---
+type Props = {
+  copyright: string
+  contactHref: string
+  contactLabel: string
+}
+
+const { copyright, contactHref, contactLabel } = Astro.props
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span>{copyright}</span>
+    <div class="site-footer__spacer"></div>
+    <a href={contactHref} class="site-footer__contact">{contactLabel}</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--ds-color-border);
+
+    & .site-footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--ds-space-8);
+      max-width: var(--ds-content-max-width);
+      margin: 0 auto;
+      padding: var(--ds-space-8) var(--ds-space-9);
+      border-left: 1px solid var(--ds-color-border);
+      border-right: 1px solid var(--ds-color-border);
+      font-size: 0.78125rem;
+      color: var(--ds-color-text-faint);
+    }
+
+    & .site-footer__spacer {
+      flex: 1;
+    }
+
+    & .site-footer__contact {
+      color: var(--ds-color-text-faint);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--ds-color-text);
+      }
+    }
+  }
+</style>

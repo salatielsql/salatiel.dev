@@ -1,0 +1,205 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Label from '@/ui/Label.astro'
+import Avatar from '@/ui/Avatar.astro'
+import Button from '@/ui/Button.astro'
+import NavLink from '@/ui/NavLink.astro'
+import PageIntro from '@/ui/PageIntro.astro'
+import PostListItem from '@/ui/PostListItem.astro'
+import TagGroup from '@/ui/TagGroup.astro'
+import PostMeta from '@/ui/PostMeta.astro'
+import Callout from '@/ui/Callout.astro'
+import CodeBlock from '@/ui/CodeBlock.astro'
+import Blockquote from '@/ui/Blockquote.astro'
+import FigurePlaceholder from '@/ui/FigurePlaceholder.astro'
+import PrevNextNav from '@/ui/PrevNextNav.astro'
+import TableOfContents from '@/ui/TableOfContents.astro'
+import Sidebar from '@/ui/Sidebar.astro'
+
+const navItems = [
+  { href: '#', label: 'Blog', shortcut: 'B' },
+  { href: '#', label: 'Topics', shortcut: 'T' },
+  { href: '#', label: 'GitHub', shortcut: 'G' },
+]
+
+const writingLinks = [
+  { href: '#', label: 'All posts' },
+  { href: '#', label: 'Topics' },
+]
+
+const recentPosts = [
+  { href: '#', title: 'Why we stopped hiding the delegation chain', active: true },
+  { href: '#', title: 'Scopes are a product surface, not a config file' },
+  { href: '#', title: 'Rate limits belong to the grant, not the key' },
+]
+
+const elsewhereLinks = [
+  { href: '#', label: 'Changelog' },
+  { href: '#', label: 'RSS' },
+]
+
+const tagGroupEntries = [
+  { href: '#', date: '2026-09-02', title: 'Machine identity is not a user with a longer password' },
+  { href: '#', date: '2026-07-28', title: 'Why we stopped hiding the delegation chain' },
+]
+
+const componentLinks = [
+  { href: '#labels', label: 'Rótulos' },
+  { href: '#avatar-button', label: 'Avatar & Button' },
+  { href: '#navlink', label: 'NavLink' },
+  { href: '#postlistitem', label: 'PostListItem' },
+  { href: '#taggroup', label: 'TagGroup' },
+  { href: '#postmeta', label: 'PostMeta' },
+  { href: '#callout', label: 'Callout' },
+  { href: '#codeblock', label: 'CodeBlock' },
+  { href: '#blockquote', label: 'Blockquote' },
+  { href: '#figureplaceholder', label: 'FigurePlaceholder' },
+  { href: '#prevnextnav', label: 'PrevNextNav' },
+  { href: '#tableofcontents', label: 'TableOfContents' },
+  { href: '#sidebar', label: 'Sidebar' },
+]
+---
+
+<BaseLayout
+  title="UI Kit"
+  siteName="salatiel"
+  section="ui-kit"
+  homeHref="/"
+  copyright="© 2026 salatiel.dev"
+  contactHref="mailto:example@example.com"
+  contactLabel="example@example.com"
+>
+  <div class="ui-kit-layout">
+    <div class="ui-kit">
+      <PageIntro eyebrow="UI Kit" title="Design system showcase">
+        Amostra de todos os componentes de `src/ui`, para conferência visual contra o mockup de referência.
+      </PageIntro>
+
+      <section class="ui-kit__section" id="labels">
+        <Label as="h2" variant="section">Rótulos</Label>
+        <div class="ui-kit__row">
+          <Label variant="eyebrow">Engineering</Label>
+          <Label variant="section">Writing</Label>
+        </div>
+      </section>
+
+      <section class="ui-kit__section" id="avatar-button">
+        <Label as="h2" variant="section">Avatar & Button</Label>
+        <div class="ui-kit__row">
+          <Avatar name="Nadia Frost" />
+          <Button size="sm">Copy as markdown</Button>
+          <Button size="xs">Copy</Button>
+        </div>
+      </section>
+
+      <section class="ui-kit__section" id="navlink">
+        <Label as="h2" variant="section">NavLink</Label>
+        <div class="ui-kit__row">
+          <NavLink href="#" shortcut="B">Blog</NavLink>
+          <NavLink href="#" variant="block">All posts</NavLink>
+        </div>
+      </section>
+
+      <section class="ui-kit__section" id="postlistitem">
+        <Label as="h2" variant="section">PostListItem</Label>
+        <PostListItem
+          href="#"
+          date="2026-09-02"
+          tag="Identity"
+          title="Machine identity is not a user with a longer password"
+          blurb="Every sistema que já lançamos tentou, mais cedo ou mais tarde, modelar um agente como se fosse um usuário."
+        />
+      </section>
+
+      <section class="ui-kit__section" id="taggroup">
+        <Label as="h2" variant="section">TagGroup</Label>
+        <TagGroup name="Identity" count="2 posts" entries={tagGroupEntries} />
+      </section>
+
+      <section class="ui-kit__section" id="postmeta">
+        <Label as="h2" variant="section">PostMeta</Label>
+        <PostMeta author="Nadia Frost" date="2026-09-02" />
+      </section>
+
+      <section class="ui-kit__section" id="callout">
+        <Label as="h2" variant="section">Callout</Label>
+        <Callout>Um grant tem um único assunto. Uma ação de agente tem pelo menos dois — o agente e o principal em nome de quem ele agiu.</Callout>
+      </section>
+
+      <section class="ui-kit__section" id="codeblock">
+        <Label as="h2" variant="section">CodeBlock</Label>
+        <CodeBlock filename="registration.ts">{`const grant = await grants.issue({
+  principal: user.id,
+  agent: agent.id,
+  scopes: ["calendar.read"],
+});`}</CodeBlock>
+      </section>
+
+      <section class="ui-kit__section" id="blockquote">
+        <Label as="h2" variant="section">Blockquote</Label>
+        <Blockquote>Se o log de auditoria não consegue nomear um humano, a feature não está pronta.</Blockquote>
+      </section>
+
+      <section class="ui-kit__section" id="figureplaceholder">
+        <Label as="h2" variant="section">FigurePlaceholder</Label>
+        <FigurePlaceholder caption="Principal, agente e grant — e as duas perguntas que cada registro responde." />
+      </section>
+
+      <section class="ui-kit__section" id="prevnextnav">
+        <Label as="h2" variant="section">PrevNextNav</Label>
+        <PrevNextNav
+          prev={{ href: '#', title: 'Scopes are a product surface, not a config file' }}
+          next={{ href: '#', title: 'Our token lifetimes were a guess for two years' }}
+        />
+      </section>
+
+      <section class="ui-kit__section" id="tableofcontents">
+        <Label as="h2" variant="section">TableOfContents</Label>
+        <TableOfContents items={componentLinks} />
+      </section>
+
+      <section class="ui-kit__section" id="sidebar">
+        <Label as="h2" variant="section">Sidebar</Label>
+        <div class="ui-kit__sidebar-preview">
+          <Sidebar writingLinks={writingLinks} recentPosts={recentPosts} elsewhereLinks={elsewhereLinks} />
+        </div>
+      </section>
+    </div>
+
+    <TableOfContents items={componentLinks} />
+  </div>
+</BaseLayout>
+
+<style>
+  .ui-kit-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ds-space-10);
+    padding: var(--ds-space-12) var(--ds-space-10) var(--ds-space-13);
+  }
+
+  .ui-kit {
+    flex: 1 1 720px;
+    min-width: 0;
+    max-width: 720px;
+
+    & .ui-kit__section {
+      margin-top: var(--ds-space-12);
+    }
+
+    & .ui-kit__row {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-space-6);
+      margin-top: var(--ds-space-5);
+    }
+
+    & .ui-kit__sidebar-preview {
+      margin-top: var(--ds-space-5);
+      max-height: 420px;
+      overflow: auto;
+      border: 1px solid var(--ds-color-border);
+      border-radius: var(--ds-radius-md);
+    }
+  }
+</style>

@@ -1,254 +1,240 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@import './tokens.css';
 
- @font-face {
-    font-family: 'PP NeueBit';
-    src: url('/fonts/PPNeueBit-Bold.woff2') format('woff2'),
-        url('/fonts/PPNeueBit-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+/* Base */
+
+html {
+  box-sizing: border-box;
 }
 
-:root {
-	/* Main colors */
-	--color-gray-800: #1E293B;
-	--color-gray-700: #2E3E58;
-	--color-gray-500: #34495E;
-	--color-gray-400: #64748B;
-	--color-gray-300: #94A3B8;
-	--color-gray-100: #C6D0E2;
-	--color-gray-75: #e7effd;
-	--color-gray-50: #FAFCFF;
-	--color-highlight: #FE1DE8;
-	--color-link: #0000FF;
-
-	/* Theme colors */
-	--color-ts: #007ACC;
-	--color-js: #D5C01E;
-	--color-react: #41C6EB;
-	--color-node: #74C36C;
-	--color-vue: #41B883;
-	--color-git: #E95026;
-	--color-strapi: #4945FF;
-	--color-nextjs: #000000;
-
-	/* Fonts */
-	/* --font-display: 'Caprasimo', system-ui; */
-	--font-display: 'Plus Jakarta Sans Variable', sans-serif;
-	--font-sans: 'Public Sans Variable', sans-serif;
-	/* --font-sans: 'Inter Tight  Variable', sans-serif; */
-	--font-pixel: 'PP NeueBit', sans-serif;
-	--font-mono: 'Fira Code', monospace;
-
-	/* Font sizes */
-	--font-base: 1rem; /* 16px */
-	--font-xs: 0.75rem; /* 12px */
-	--font-sm: 0.875rem; /* 14px */
-	--font-lg: 1.125rem; /* 18px */
-	--font-xl: 1.25rem; /* 20px */
-	--font-2xl: 1.5rem; /* 24px */
-	--font-3xl: 1.875rem; /* 30px */
-	--font-4xl: 2.25rem; /* 36px */
-	--font-5xl: 3rem; /* 48px */
-	--font-6xl: 3.75rem; /* 60px */
-	--font-7xl: 4.5rem; /* 72px */
-}
-
-html, body {
-	height: 100%;
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
-	font-family: var(--font-sans);
-    font-weight: 300;
-    font-variation-settings: "wght" 320;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background-color: var(--color-gray-50);
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 16px;
-	line-height: 1.8;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
 }
 
-main {
-	flex: 1;
-}
-/* 
-@media (max-width: 720px) {
-	body {
-		font-size: 14px;
-	}
-} */
+/* Two-column "annotated markdown" grid */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: var(--font-display);;
-	margin: 0 0 1rem 0;
+.page-grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-4);
+  max-width: 780px;
+  margin-inline: auto;
+  padding: var(--space-6) var(--space-5);
 }
 
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-weight: 700;
-    font-variation-settings: "wght" 700;
-	margin: 0 0 0.5rem 0;
+/* Gutter row: mark sits inline before content, in the same column */
+
+.gutter-row {
+  display: flex;
+  align-items: flex-start;
+  column-gap: var(--space-2);
 }
 
-h1 {
-	font-size: var(--font-6xl);
-	font-weight: 800;
-    font-variation-settings: "wght" 800;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: var(--font-3xl);
-	line-height: var(--font-3xl);
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
+.gutter-mark {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--color-gutter-mark);
+  white-space: pre-wrap;
+  user-select: none;
 }
 
-p {
-	margin: 0;
+.gutter-mark--heading {
+  color: var(--color-heading);
+  font-weight: 700;
 }
 
-strong,
-b {
-	font-weight: 700;
+.gutter-mark--label {
+  color: var(--color-agent-context);
+  text-transform: lowercase;
 }
 
-a {
-	text-decoration: none;
+.gutter-content {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-a.ext-link {
-	text-decoration: none;
-	font-family: var(--font-pixel);
-	letter-spacing: 0.5px;
-	transition: all 250ms ease;
+/* Headings keep the original two-column gutter: mark outdented to the left,
+   instead of inline right before the content like every other row. */
 
-	&::after {
-		content: ' ↗';
-		font-size: inherit;
-		display: inline-block;
-		transition: all 250ms ease;
-		line-height: 1;
-	}
-
-	&:hover {
-		&::after {
-			transform: translate(4px, -4px);
-		}
-	}
-
-	& .brand {
-      width: 1rem;
-      height: 1rem;
-      vertical-align: middle;
-    }
-	
+.gutter-row--heading {
+  display: grid;
+  grid-template-columns: var(--gutter-width) minmax(0, 1fr);
+  column-gap: var(--space-3);
 }
 
-.center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+.gutter-row--heading > .gutter-mark {
+  text-align: right;
 }
 
-.v-separator,
-.h-separator {
-	background-color: var(--color-gray-400);
-	display: inline-block;
-	transform: rotate(45deg);
-	vertical-align: middle;
+/* Bracket-decorated inline links */
+
+.bracket-link {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
 }
 
-.v-separator {
-	margin: 0.5rem auto;
-	width: 8px;
-	height: 1px;
-	position: relative;
-
-	&.lg {
-		margin: 1rem auto;
-	}
-
-	&.xl {
-		margin: 1.5rem auto;
-	}
-
-	&::before {
-		content: '';
-		display: inline-block;
-		width: 8px;
-		height: 1px;
-		background-color: var(--color-gray-400);
-        position: absolute;
-        left: 8px;
-        bottom: 8px;
-	}
-
-	&::after {
-		content: '';
-		display: inline-block;
-		width: 8px;
-		height: 1px;
-		background-color: var(--color-gray-400);
-        position: absolute;
-        right: 8px;
-        top: 8px;
-	}
+.bracket-link::before {
+  content: '[';
+  color: var(--color-gutter-mark);
 }
 
-.h-separator {
-	margin: 0 0.5rem;
-	width: 3px;
-	height: 3px;
+.bracket-link::after {
+  content: '](\2197)';
+  color: var(--color-gutter-mark);
 }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+.bracket-link:hover,
+.bracket-link:focus-visible {
+  opacity: 0.7;
 }
 
-.container {
-	width: 100%;
-	max-width: 56rem; /* 896px */
-	margin: 0 auto;
-	padding: 0 1em;
+/* Markdown typography (inside .gutter-content) */
+
+.gutter-content h1,
+.gutter-content h2,
+.gutter-content h3,
+.gutter-content h4,
+.gutter-content h5,
+.gutter-content h6 {
+  margin: 0;
+  color: var(--color-heading);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+}
+
+.gutter-content h1 {
+  font-size: var(--font-size-h1);
+}
+
+.gutter-content h2 {
+  font-size: var(--font-size-h2);
+}
+
+.gutter-content h3 {
+  font-size: var(--font-size-h3);
+}
+
+.gutter-content h4 {
+  font-size: var(--font-size-h4);
+}
+
+.gutter-content h5 {
+  font-size: var(--font-size-h5);
+}
+
+.gutter-content h6 {
+  font-size: var(--font-size-h6);
+}
+
+.gutter-content p {
+  margin: 0;
+  color: var(--color-body);
+  font-family: var(--font-body);
+}
+
+.gutter-content blockquote {
+  margin: 0;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border);
+  color: var(--color-body);
+  font-style: italic;
+}
+
+.gutter-content pre {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-code-bg);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.gutter-content code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-code);
+}
+
+.gutter-content :not(pre) > code {
+  padding: 0.1em 0.35em;
+  background: var(--color-code-bg);
+  border-radius: 3px;
+}
+
+.gutter-content table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.gutter-content th,
+.gutter-content td {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.gutter-content ul,
+.gutter-content ol {
+  margin: 0;
+  padding-left: var(--space-4);
+}
+
+.gutter-content li + li {
+  margin-top: var(--space-1);
+}
+
+/* Agent-context blocks — flat, muted, no syntax highlight */
+
+.gutter-content pre:has(code.language-agent-context) {
+  background: var(--color-code-bg);
+  color: var(--color-agent-context);
+}
+
+.gutter-content code.language-agent-context {
+  color: var(--color-agent-context);
+  font-family: var(--font-mono);
+}
+
+/* Frontmatter block */
+
+.frontmatter-block {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.frontmatter-block__row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.frontmatter-block__label {
+  color: var(--color-agent-context);
+}
+
+.frontmatter-block__value {
+  color: var(--color-body);
+}
+
+.frontmatter-block__value a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.frontmatter-block__value a:hover,
+.frontmatter-block__value a:focus-visible {
+  opacity: 0.7;
 }

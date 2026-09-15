@@ -1,0 +1,32 @@
+---
+type Props = {
+  name: string
+  size?: number
+}
+
+const { name, size = 26 } = Astro.props
+
+const initials = name
+  .split(' ')
+  .filter(Boolean)
+  .map((word) => word[0])
+  .join('')
+  .toUpperCase()
+---
+
+<div class="avatar" style={{ '--avatar-size': `${size}px` }}>{initials}</div>
+
+<style>
+  .avatar {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ds-color-avatar-bg);
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-font-size-2xs);
+    color: var(--ds-color-text-secondary);
+  }
+</style>

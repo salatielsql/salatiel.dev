@@ -1,0 +1,62 @@
+---
+type Props = {
+  href: string
+  shortcut?: string
+  variant?: 'inline' | 'block'
+  active?: boolean
+}
+
+const { href, shortcut, variant = 'inline', active = false } = Astro.props
+---
+
+<a
+  href={href}
+  class:list={['nav-link', `nav-link--${variant}`, { 'nav-link--active': active }]}
+>
+  {shortcut && <span class="nav-link__shortcut">{shortcut}</span>}
+  <slot />
+</a>
+
+<style>
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-3);
+    border-radius: var(--ds-radius-md);
+    color: var(--ds-color-text-nav);
+    font-size: var(--ds-font-size-sm);
+    text-decoration: none;
+    transition:
+      background var(--ds-transition-fast),
+      color var(--ds-transition-fast);
+
+    &:hover {
+      background: var(--ds-color-hover-bg);
+      color: var(--ds-color-text);
+    }
+
+    &.nav-link--inline {
+      padding: var(--ds-space-3) var(--ds-space-4);
+    }
+
+    &.nav-link--block {
+      display: block;
+      padding: 0.3125rem var(--ds-space-3);
+      margin-left: -0.5rem;
+      font-size: 0.84375rem;
+    }
+
+    &.nav-link--active {
+      color: var(--ds-color-text);
+    }
+  }
+
+  .nav-link__shortcut {
+    font-family: var(--ds-font-mono);
+    font-size: 0.625rem;
+    color: var(--ds-color-text-subtle);
+    border: 1px solid var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-sm);
+    padding: 0.0625rem 0.25rem;
+  }
+</style>

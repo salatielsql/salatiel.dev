@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import GutterRow from '@/components/GutterRow.astro'
+import BracketLink from '@/components/BracketLink.astro'
+
+type Props = {
+  entry: CollectionEntry<'experiments'>
+}
+
+const { entry } = Astro.props
+
+const href = entry.data.demo ?? entry.data.repo
+---
+
+<GutterRow mark="-">
+  <article class="experiment-listing-row">
+    <h3 class="experiment-listing-row__title">
+      {href ? <BracketLink href={href}>{entry.data.title}</BracketLink> : entry.data.title}
+    </h3>
+    <p class="experiment-listing-row__description">{entry.data.description}</p>
+    {entry.data.tags.length > 0 && <p class="experiment-listing-row__tags">{entry.data.tags.join(', ')}</p>}
+  </article>
+</GutterRow>
+
+<style>
+  .experiment-listing-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .experiment-listing-row__title {
+    margin: 0;
+    font-size: var(--font-size-h5);
+  }
+
+  .experiment-listing-row__description {
+    margin: 0;
+    color: var(--color-body);
+  }
+
+  .experiment-listing-row__tags {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-small);
+    color: var(--color-gutter-mark);
+  }
+</style>

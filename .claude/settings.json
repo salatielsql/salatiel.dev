@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; [ -n \"$f\" ] && [ -f \"$f\" ] || exit 0; pnpm exec prettier --write --ignore-unknown \"$f\" 2>/dev/null; case \"$f\" in *.js|*.jsx|*.ts|*.tsx|*.mjs|*.cjs|*.astro|*.json) pnpm exec oxlint --fix \"$f\" 2>/dev/null ;; esac; } || true",
+            "statusMessage": "Formatting and lint-fixing edited file..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/fallow-gate.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": ["mcp__astro-docs__search_astro_docs"]
+  }
+}

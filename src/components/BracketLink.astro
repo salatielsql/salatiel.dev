@@ -1,0 +1,9 @@
+---
+type Props = {
+  href: string
+}
+
+const { href } = Astro.props
+---
+
+<a href={href} class="bracket-link"><slot /></a>

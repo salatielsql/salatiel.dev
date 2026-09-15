@@ -1,0 +1,96 @@
+---
+import NavLink from '@/ui/NavLink.astro'
+
+type NavItem = {
+  href: string
+  label: string
+  shortcut?: string
+}
+
+type Props = {
+  siteName: string
+  section: string
+  homeHref: string
+  navItems?: NavItem[]
+}
+
+const { siteName, section, homeHref, navItems } = Astro.props
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href={homeHref} class="site-header__brand">
+      <span class="site-header__mark"></span>
+      <span>{siteName}</span>
+      <span class="site-header__slash">/</span>
+      <span class="site-header__section">{section}</span>
+    </a>
+    <div class="site-header__spacer"></div>
+    {navItems && navItems.length && <nav class="site-header__nav">
+      {navItems.map((item) => <NavLink href={item.href} shortcut={item.shortcut}>{item.label}</NavLink>)}
+    </nav>}
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: 3.25rem;
+    border-bottom: 1px solid var(--ds-color-border);
+    background: rgb(255 255 255 / 86%);
+    backdrop-filter: blur(8px);
+
+    & .site-header__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-space-10);
+      height: 100%;
+      max-width: var(--ds-content-max-width);
+      margin: 0 auto;
+      padding: 0 var(--ds-space-9);
+      border-left: 1px solid var(--ds-color-border);
+      border-right: 1px solid var(--ds-color-border);
+    }
+
+    & .site-header__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-space-4);
+      font-size: var(--ds-font-size-sm);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ds-color-text);
+      text-decoration: none;
+    }
+
+    & .site-header__mark {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border-radius: var(--ds-radius-sm);
+      background: var(--ds-color-accent);
+    }
+
+    & .site-header__slash {
+      color: var(--ds-color-text-subtle);
+      font-weight: 400;
+    }
+
+    & .site-header__section {
+      font-weight: 400;
+      color: var(--ds-color-text-secondary);
+    }
+
+    & .site-header__spacer {
+      flex: 1;
+    }
+
+    & .site-header__nav {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-space-1);
+    }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+type Props = {
+  label?: string
+}
+
+const { label = 'NOTE' } = Astro.props
+---
+
+<div class="callout">
+  <div class="callout__label">{label}</div>
+  <div class="callout__body"><slot /></div>
+</div>
+
+<style>
+  .callout {
+    display: flex;
+    gap: var(--ds-space-5);
+    padding: var(--ds-space-5) var(--ds-space-8);
+    border: 1px solid var(--ds-color-accent-border);
+    background: var(--ds-color-accent-bg);
+    border-radius: var(--ds-radius-lg);
+
+    & .callout__label {
+      flex: 0 0 auto;
+      padding-top: 0.125rem;
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-2xs);
+      color: var(--ds-color-accent);
+      letter-spacing: 0.04em;
+    }
+
+    & .callout__body {
+      font-size: var(--ds-font-size-base);
+      line-height: 1.65;
+      color: var(--ds-color-text-body);
+    }
+  }
+</style>

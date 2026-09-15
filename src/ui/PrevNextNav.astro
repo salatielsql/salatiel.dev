@@ -1,0 +1,77 @@
+---
+type Link = {
+  href: string
+  title: string
+}
+
+type Props = {
+  prev?: Link
+  next?: Link
+}
+
+const { prev, next } = Astro.props
+---
+
+<div class="prev-next-nav">
+  {
+    prev && (
+      <a href={prev.href} class="prev-next-nav__card">
+        <div class="prev-next-nav__label">← Previous</div>
+        <div class="prev-next-nav__title">{prev.title}</div>
+      </a>
+    )
+  }
+  {
+    next && (
+      <a href={next.href} class="prev-next-nav__card prev-next-nav__card--next">
+        <div class="prev-next-nav__label">Next →</div>
+        <div class="prev-next-nav__title">{next.title}</div>
+      </a>
+    )
+  }
+</div>
+
+<style>
+  .prev-next-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ds-space-5);
+    margin-top: var(--ds-space-12);
+    padding-top: var(--ds-space-9);
+    border-top: 1px solid var(--ds-color-border);
+
+    & .prev-next-nav__card {
+      flex: 1 1 220px;
+      border: 1px solid var(--ds-color-border);
+      border-radius: var(--ds-radius-lg);
+      padding: var(--ds-space-6) var(--ds-space-6);
+      color: var(--ds-color-text);
+      text-decoration: none;
+      transition:
+        border-color var(--ds-transition-fast),
+        background var(--ds-transition-fast);
+
+      &:hover {
+        border-color: var(--ds-color-accent-border-hover);
+        background: var(--ds-color-row-hover-bg);
+      }
+
+      &.prev-next-nav__card--next {
+        text-align: right;
+      }
+    }
+
+    & .prev-next-nav__label {
+      margin-bottom: var(--ds-space-3);
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-2xs);
+      color: var(--ds-color-text-subtle);
+    }
+
+    & .prev-next-nav__title {
+      font-size: 0.90625rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import '@/styles/global.css'
+import { Font } from 'astro:assets'
+import FrontmatterBlock from '@/components/FrontmatterBlock.astro'
+
+type FrontmatterRow = {
+  label: string
+  value: string
+  href?: string
+}
+
+type Props = {
+  title: string
+  frontmatterRows?: FrontmatterRow[]
+  feedHref?: string
+}
+
+const { title, frontmatterRows, feedHref } = Astro.props
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <Font cssVariable="--font-jetbrains-mono" preload />
+    <title>{title} — salatiel.dev</title>
+  </head>
+  <body>
+    <main class="page-grid">
+      <FrontmatterBlock title={title} frontmatterRows={frontmatterRows} feedHref={feedHref} />
+      <slot />
+    </main>
+  </body>
+</html>

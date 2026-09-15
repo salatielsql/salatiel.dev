@@ -1,0 +1,205 @@
+- generic [active] [ref=f167e1]:
+    - generic [ref=f167e2]:
+        - banner [ref=f167e3]:
+            - generic [ref=f167e4]:
+                - link "salatiel / ui-kit" [ref=f167e5] [cursor=pointer]:
+                    - /url: /
+                    - generic [ref=f167e7]: salatiel
+                    - generic [ref=f167e8]: /
+                    - generic [ref=f167e9]: ui-kit
+                - navigation [ref=f167e10]:
+                    - link "B Blog" [ref=f167e11] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f167e12]: B
+                        - text: Blog
+                    - link "T Topics" [ref=f167e13] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f167e14]: T
+                        - text: Topics
+                    - link "G GitHub" [ref=f167e15] [cursor=pointer]:
+                        - /url: '#'
+                        - generic [ref=f167e16]: G
+                        - text: GitHub
+        - main [ref=f167e17]:
+            - generic [ref=f167e18]:
+                - generic [ref=f167e19]:
+                    - generic [ref=f167e20]:
+                        - generic [ref=f167e21]: UI Kit
+                        - heading "Design system showcase" [level=1] [ref=f167e23]
+                        - paragraph [ref=f167e24]: 'Amostra de todos os componentes de `src/ui`, para conferência visual contra o mockup de referência.'
+                    - generic [ref=f167e25]:
+                        - heading "Rótulos" [level=2] [ref=f167e26]
+                        - generic [ref=f167e27]:
+                            - generic [ref=f167e28]: Engineering
+                            - generic [ref=f167e29]: Writing
+                    - generic [ref=f167e30]:
+                        - heading "Avatar & Button" [level=2] [ref=f167e31]
+                        - generic [ref=f167e32]:
+                            - generic [ref=f167e33]: NF
+                            - button "Copy as markdown" [ref=f167e34] [cursor=pointer]
+                            - button "Copy" [ref=f167e35] [cursor=pointer]
+                    - generic [ref=f167e36]:
+                        - heading "NavLink" [level=2] [ref=f167e37]
+                        - generic [ref=f167e38]:
+                            - link "B Blog" [ref=f167e39] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f167e40]: B
+                                - text: Blog
+                            - link "All posts" [ref=f167e41] [cursor=pointer]:
+                                - /url: '#'
+                    - generic [ref=f167e42]:
+                        - heading "PostListItem" [level=2] [ref=f167e43]
+                        - link "2026-09-02 · Identity Machine identity is not a user with a longer password Every sistema que já lançamos tentou, mais cedo ou mais tarde, modelar um agente como se fosse um usuário." [ref=f167e44] [cursor=pointer]:
+                            - /url: '#'
+                            - generic [ref=f167e45]:
+                                - time [ref=f167e46]: 2026-09-02
+                                - generic [ref=f167e47]: ·
+                                - generic [ref=f167e48]: Identity
+                            - generic [ref=f167e49]: Machine identity is not a user with a longer password
+                            - generic [ref=f167e50]: Every sistema que já lançamos tentou, mais cedo ou mais tarde, modelar um agente como se fosse um usuário.
+                    - generic [ref=f167e51]:
+                        - heading "TagGroup" [level=2] [ref=f167e52]
+                        - generic [ref=f167e53]:
+                            - generic [ref=f167e54]:
+                                - heading "Identity" [level=2] [ref=f167e55]
+                                - generic [ref=f167e56]: 2 posts
+                            - generic [ref=f167e57]:
+                                - link "2026-09-02 Machine identity is not a user with a longer password" [ref=f167e58] [cursor=pointer]:
+                                    - /url: '#'
+                                    - time [ref=f167e59]: 2026-09-02
+                                    - generic [ref=f167e60]: Machine identity is not a user with a longer password
+                                - link "2026-07-28 Why we stopped hiding the delegation chain" [ref=f167e61] [cursor=pointer]:
+                                    - /url: '#'
+                                    - time [ref=f167e62]: 2026-07-28
+                                    - generic [ref=f167e63]: Why we stopped hiding the delegation chain
+                    - generic [ref=f167e64]:
+                        - heading "PostMeta" [level=2] [ref=f167e65]
+                        - generic [ref=f167e66]:
+                            - generic [ref=f167e67]: NF
+                            - generic [ref=f167e68]: Nadia Frost
+                            - generic [ref=f167e69]: ·
+                            - time [ref=f167e70]: 2026-09-02
+                            - button "Copy as markdown" [ref=f167e71] [cursor=pointer]
+                    - generic [ref=f167e72]:
+                        - heading "Callout" [level=2] [ref=f167e73]
+                        - generic [ref=f167e74]:
+                            - generic [ref=f167e75]: NOTE
+                            - generic [ref=f167e76]: Um grant tem um único assunto. Uma ação de agente tem pelo menos dois — o agente e o principal em nome de quem ele agiu.
+                    - generic [ref=f167e77]:
+                        - heading "CodeBlock" [level=2] [ref=f167e78]
+                        - generic [ref=f167e79]:
+                            - generic [ref=f167e80]:
+                                - generic [ref=f167e81]: registration.ts
+                                - button "Copy" [ref=f167e82] [cursor=pointer]
+                            - generic [ref=f167e83]: 'const grant = await grants.issue({ principal: user.id, agent: agent.id, scopes: ["calendar.read"], });'
+                    - generic [ref=f167e84]:
+                        - heading "Blockquote" [level=2] [ref=f167e85]
+                        - blockquote [ref=f167e86]: Se o log de auditoria não consegue nomear um humano, a feature não está pronta.
+                    - generic [ref=f167e87]:
+                        - heading "FigurePlaceholder" [level=2] [ref=f167e88]
+                        - figure "Principal, agente e grant — e as duas perguntas que cada registro responde." [ref=f167e89]:
+                            - generic [ref=f167e90]: diagram placeholder — Principal, agente e grant — e as duas perguntas que cada registro responde.
+                    - generic [ref=f167e92]:
+                        - heading "PrevNextNav" [level=2] [ref=f167e93]
+                        - generic [ref=f167e94]:
+                            - link "← Previous Scopes are a product surface, not a config file" [ref=f167e95] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f167e96]: ← Previous
+                                - generic [ref=f167e97]: Scopes are a product surface, not a config file
+                            - link "Next → Our token lifetimes were a guess for two years" [ref=f167e98] [cursor=pointer]:
+                                - /url: '#'
+                                - generic [ref=f167e99]: Next →
+                                - generic [ref=f167e100]: Our token lifetimes were a guess for two years
+                    - generic [ref=f167e101]:
+                        - heading "TableOfContents" [level=2] [ref=f167e102]
+                        - navigation [ref=f167e103]:
+                            - generic [ref=f167e104]:
+                                - generic [ref=f167e105]: On this page
+                                - generic [ref=f167e107]:
+                                    - link "Rótulos" [ref=f167e108] [cursor=pointer]:
+                                        - /url: '#labels'
+                                    - link "Avatar & Button" [ref=f167e109] [cursor=pointer]:
+                                        - /url: '#avatar-button'
+                                    - link "NavLink" [ref=f167e110] [cursor=pointer]:
+                                        - /url: '#navlink'
+                                    - link "PostListItem" [ref=f167e111] [cursor=pointer]:
+                                        - /url: '#postlistitem'
+                                    - link "TagGroup" [ref=f167e112] [cursor=pointer]:
+                                        - /url: '#taggroup'
+                                    - link "PostMeta" [ref=f167e113] [cursor=pointer]:
+                                        - /url: '#postmeta'
+                                    - link "Callout" [ref=f167e114] [cursor=pointer]:
+                                        - /url: '#callout'
+                                    - link "CodeBlock" [ref=f167e115] [cursor=pointer]:
+                                        - /url: '#codeblock'
+                                    - link "Blockquote" [ref=f167e116] [cursor=pointer]:
+                                        - /url: '#blockquote'
+                                    - link "FigurePlaceholder" [ref=f167e117] [cursor=pointer]:
+                                        - /url: '#figureplaceholder'
+                                    - link "PrevNextNav" [ref=f167e118] [cursor=pointer]:
+                                        - /url: '#prevnextnav'
+                                    - link "TableOfContents" [ref=f167e119] [cursor=pointer]:
+                                        - /url: '#tableofcontents'
+                                    - link "Sidebar" [ref=f167e120] [cursor=pointer]:
+                                        - /url: '#sidebar'
+                    - generic [ref=f167e121]:
+                        - heading "Sidebar" [level=2] [ref=f167e122]
+                        - complementary [ref=f167e124]:
+                            - generic [ref=f167e125]: Writing
+                            - link "All posts" [ref=f167e127] [cursor=pointer]:
+                                - /url: '#'
+                            - link "Topics" [ref=f167e128] [cursor=pointer]:
+                                - /url: '#'
+                            - generic [ref=f167e129]: Recent
+                            - generic [ref=f167e131]:
+                                - link "Why we stopped hiding the delegation chain" [ref=f167e132] [cursor=pointer]:
+                                    - /url: '#'
+                                - link "Scopes are a product surface, not a config file" [ref=f167e133] [cursor=pointer]:
+                                    - /url: '#'
+                                - link "Rate limits belong to the grant, not the key" [ref=f167e134] [cursor=pointer]:
+                                    - /url: '#'
+                            - generic [ref=f167e135]: Elsewhere
+                            - link "Changelog" [ref=f167e137] [cursor=pointer]:
+                                - /url: '#'
+                            - link "RSS" [ref=f167e138] [cursor=pointer]:
+                                - /url: '#'
+                - navigation [ref=f167e139]:
+                    - generic [ref=f167e140]:
+                        - generic [ref=f167e141]: On this page
+                        - generic [ref=f167e143]:
+                            - link "Rótulos" [ref=f167e144] [cursor=pointer]:
+                                - /url: '#labels'
+                            - link "Avatar & Button" [ref=f167e145] [cursor=pointer]:
+                                - /url: '#avatar-button'
+                            - link "NavLink" [ref=f167e146] [cursor=pointer]:
+                                - /url: '#navlink'
+                            - link "PostListItem" [ref=f167e147] [cursor=pointer]:
+                                - /url: '#postlistitem'
+                            - link "TagGroup" [ref=f167e148] [cursor=pointer]:
+                                - /url: '#taggroup'
+                            - link "PostMeta" [ref=f167e149] [cursor=pointer]:
+                                - /url: '#postmeta'
+                            - link "Callout" [ref=f167e150] [cursor=pointer]:
+                                - /url: '#callout'
+                            - link "CodeBlock" [ref=f167e151] [cursor=pointer]:
+                                - /url: '#codeblock'
+                            - link "Blockquote" [ref=f167e152] [cursor=pointer]:
+                                - /url: '#blockquote'
+                            - link "FigurePlaceholder" [ref=f167e153] [cursor=pointer]:
+                                - /url: '#figureplaceholder'
+                            - link "PrevNextNav" [ref=f167e154] [cursor=pointer]:
+                                - /url: '#prevnextnav'
+                            - link "TableOfContents" [ref=f167e155] [cursor=pointer]:
+                                - /url: '#tableofcontents'
+                            - link "Sidebar" [ref=f167e156] [cursor=pointer]:
+                                - /url: '#sidebar'
+        - contentinfo [ref=f167e157]:
+            - generic [ref=f167e158]:
+                - generic [ref=f167e159]: © 2026 salatiel.dev
+                - link "example@example.com" [ref=f167e160] [cursor=pointer]:
+                    - /url: mailto:example@example.com
+    - generic [ref=f167e163]:
+        - button [ref=f167e164]
+        - button [ref=f167e170]
+        - button [ref=f167e174]
+        - button [ref=f167e179]

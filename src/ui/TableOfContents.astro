@@ -1,0 +1,65 @@
+---
+import Label from '@/ui/Label.astro'
+
+type Item = {
+  href: string
+  label: string
+}
+
+type Props = {
+  items: Item[]
+}
+
+const { items } = Astro.props
+---
+
+<nav class="table-of-contents">
+  <div class="table-of-contents__sticky">
+    <div class="table-of-contents__label"><Label variant="section">On this page</Label></div>
+    <div class="table-of-contents__list">
+      {
+        items.map((item) => (
+          <a href={item.href} class="table-of-contents__link">
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>
+
+<style>
+  .table-of-contents {
+    flex: 0 1 190px;
+    min-width: 170px;
+    align-self: stretch;
+
+    & .table-of-contents__sticky {
+      position: sticky;
+      top: 5.25rem;
+    }
+
+    & .table-of-contents__label {
+      margin-bottom: var(--ds-space-5);
+    }
+
+    & .table-of-contents__list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-space-5);
+      border-left: 1px solid var(--ds-color-border);
+      padding-left: var(--ds-space-5);
+    }
+
+    & .table-of-contents__link {
+      font-size: var(--ds-font-size-sm);
+      line-height: 1.4;
+      color: var(--ds-color-text-muted);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--ds-color-accent);
+      }
+    }
+  }
+</style>

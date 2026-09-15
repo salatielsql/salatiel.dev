@@ -1,0 +1,12 @@
+---
+import PageLayout from '@/components/PageLayout.astro'
+import { getEntry, render } from 'astro:content'
+
+const entry = (await getEntry('pages', '404'))!
+
+const { Content } = await render(entry)
+---
+
+<PageLayout title={entry.data.title} frontmatterRows={entry.data.frontmatterRows}>
+  <Content />
+</PageLayout>

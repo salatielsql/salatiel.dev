@@ -1,0 +1,61 @@
+---
+import Button from '@/ui/Button.astro'
+
+type Props = {
+  filename?: string
+  copyLabel?: string
+}
+
+const { filename, copyLabel = 'Copy' } = Astro.props
+---
+
+<div class="code-block">
+  {
+    filename && (
+      <div class="code-block__header">
+        <span class="code-block__filename">{filename}</span>
+        <div class="code-block__spacer" />
+        <Button size="xs">{copyLabel}</Button>
+      </div>
+    )
+  }
+  <pre class="code-block__pre"><slot /></pre>
+</div>
+
+<style>
+  .code-block {
+    border: 1px solid var(--ds-color-border-strong);
+    border-radius: var(--ds-radius-lg);
+    overflow: hidden;
+    background: var(--ds-color-surface);
+
+    & .code-block__header {
+      display: flex;
+      align-items: center;
+      gap: var(--ds-space-4);
+      padding: var(--ds-space-3) var(--ds-space-5);
+      border-bottom: 1px solid var(--ds-color-border);
+      background: var(--ds-color-row-hover-bg);
+    }
+
+    & .code-block__filename {
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-2xs);
+      color: var(--ds-color-text-faint);
+    }
+
+    & .code-block__spacer {
+      flex: 1;
+    }
+
+    & .code-block__pre {
+      margin: 0;
+      padding: var(--ds-space-6) var(--ds-space-7);
+      overflow-x: auto;
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-sm);
+      line-height: 1.7;
+      color: var(--ds-color-text-body);
+    }
+  }
+</style>

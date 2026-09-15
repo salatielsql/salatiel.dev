@@ -1,0 +1,25 @@
+---
+title: Home
+frontmatterRows:
+  - label: description
+    value: personal site, rendered as its own markdown source
+---
+
+import RecentPosts from '@/components/RecentPosts.astro'
+
+# Hi, I'm Salatiel
+
+I write software and occasionally write about it. This site is itself one of those write-ups — the markdown source of every page is treated as part of the design, not just the input to it, which is why you're looking at gutter marks instead of a normal blog theme.
+
+<RecentPosts limit={4} />
+
+More writing lives on the [blog](/blog). What I'm currently building lives on [projects](/projects), and the rougher, unfinished stuff lives on [experiments](/experiments).
+
+```agent-context
+┌─ agent-context ──────────────────────────┐
+│ page: home                               │
+│ subject: software-engineer               │
+│ sections: recent-posts, projects         │
+│ format: annotated-markdown                │
+└────────────────────────────────────────────┘
+```

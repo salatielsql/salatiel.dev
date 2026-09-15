@@ -1,0 +1,74 @@
+---
+import GutterRow from '@/components/GutterRow.astro'
+import { NAV_LINKS } from '@/lib/nav'
+
+type FrontmatterRow = {
+  label: string
+  value: string
+  href?: string
+}
+
+type Props = {
+  title: string
+  frontmatterRows?: FrontmatterRow[]
+  feedHref?: string
+}
+
+const { title, frontmatterRows = [], feedHref } = Astro.props
+---
+
+<div class="frontmatter-block">
+  <GutterRow mark="---" variant="label" />
+  <GutterRow mark="" variant="label">
+    <div class="frontmatter-block__row">
+      <span class="frontmatter-block__label">title:</span>
+      <span class="frontmatter-block__value">{title}</span>
+    </div>
+  </GutterRow>
+  {
+    frontmatterRows.map((row) => (
+      <GutterRow mark="" variant="label">
+        <div class="frontmatter-block__row">
+          <span class="frontmatter-block__label">{row.label}:</span>
+          <span class="frontmatter-block__value">
+            {row.href ? <a href={row.href}>{row.value}</a> : row.value}
+          </span>
+        </div>
+      </GutterRow>
+    ))
+  }
+  <GutterRow mark="" variant="label">
+    <div class="frontmatter-block__row">
+      <span class="frontmatter-block__label">nav:</span>
+      <span class="frontmatter-block__value">
+        {NAV_LINKS.map((link, index) => (
+          <>
+            {index > 0 && ' '}
+            <a href={link.href}>{link.label}</a>
+          </>
+        ))}
+      </span>
+    </div>
+  </GutterRow>
+  {
+    feedHref && (
+      <GutterRow mark="" variant="label">
+        <div class="frontmatter-block__row">
+          <span class="frontmatter-block__label">feed:</span>
+          <span class="frontmatter-block__value">
+            <a href={feedHref}>{feedHref}</a>
+          </span>
+        </div>
+      </GutterRow>
+    )
+  }
+  <GutterRow mark="" variant="label">
+    <div class="frontmatter-block__row">
+      <span class="frontmatter-block__label">llms:</span>
+      <span class="frontmatter-block__value">
+        <a href="/llms.txt">/llms.txt</a>
+      </span>
+    </div>
+  </GutterRow>
+  <GutterRow mark="---" variant="label" />
+</div>

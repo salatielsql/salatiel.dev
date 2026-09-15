@@ -1,0 +1,104 @@
+name: Code Quality
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: code-quality-${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+  quality:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    env:
+      FALLOW_TELEMETRY_DISABLED: 1
+      # Scopes `fallow audit` to the PR diff instead of the merge-base auto-detection.
+      FALLOW_AUDIT_BASE: ${{ github.event.pull_request.base.sha }}
+    strategy:
+      fail-fast: false
+      matrix:
+        check:
+          # oxlint auto-detects GitHub Actions and emits native annotations when no
+          # --format is passed, so the gate step deliberately bypasses the `lint`
+          # script (which pins --format=agent for local/agent use).
+          - { name: Lint, cmd: 'pnpm exec oxlint' }
+          - { name: Astro check, cmd: 'pnpm run check' }
+          - { name: Typecheck, cmd: 'pnpm run typecheck' }
+          - { name: Fallow audit, cmd: 'pnpm run quality:audit --format=github-annotations' }
+    name: quality / ${{ matrix.check.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so `fallow audit` can resolve the PR's merge-base.
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: ${{ matrix.check.name }}
+        run: ${{ matrix.check.cmd }}
+
+      - name: Save report (SARIF)
+        if: always() && matrix.check.name == 'Lint'
+        continue-on-error: true
+        run: pnpm exec oxlint --format=sarif > quality-report.sarif
+
+      - name: Save report (SARIF)
+        if: always() && matrix.check.name == 'Fallow audit'
+        continue-on-error: true
+        run: pnpm run quality:audit --format=sarif > quality-report.sarif
+
+      - name: Upload report artifact
+        if: always() && (matrix.check.name == 'Lint' || matrix.check.name == 'Fallow audit')
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-report-${{ matrix.check.name }}
+          path: quality-report.sarif
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Upload report to Code Scanning
+        if: always() && (matrix.check.name == 'Lint' || matrix.check.name == 'Fallow audit')
+        uses: github/codeql-action/upload-sarif@v3
+        continue-on-error: true
+        with:
+          sarif_file: quality-report.sarif
+          category: ${{ matrix.check.name }}

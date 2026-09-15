@@ -2,6 +2,7 @@
 dist/
 # generated types
 .astro/
+.cachebro
 
 # dependencies
 node_modules/
@@ -22,3 +23,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+.cachebro
+.fallow/
